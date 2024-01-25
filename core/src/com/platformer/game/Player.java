@@ -19,13 +19,6 @@ public class Player extends Sprite implements Creatable, Updatable, Drawable, Co
     private List<Collideable> collideables = new ArrayList<>();
     private final DesktopInputController controller = new PlayerController(this);
 
-    private final CollisionDetector collisionDetector = new CollisionDetector(this) {
-        @Override
-        public void onCollisionDetected(Collideable collideable) {
-            //
-        }
-    };
-
     public Player(String texturePath, Rectangle initialHitBox) {
         this.texturePath = texturePath;
 
@@ -82,8 +75,6 @@ public class Player extends Sprite implements Creatable, Updatable, Drawable, Co
                 this.getX() + this.velocity.x * Gdx.graphics.getDeltaTime(),
                 this.getY() + this.velocity.y * Gdx.graphics.getDeltaTime()
         );
-
-        this.collisionDetector.detectCollisions(this.collideables);
 
         this.collideables = this.collideables.stream()
                 .filter(collideable -> !collideable.shouldRemove())
