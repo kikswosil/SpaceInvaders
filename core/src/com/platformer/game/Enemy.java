@@ -19,6 +19,8 @@ public class Enemy extends Sprite implements Collideable, Drawable, Updatable, C
         this.setSize(width, height);
 
         this.texturePath = texturePath;
+
+        this.velocity = new Vector2(0, -3.f);
     }
 
     @Override

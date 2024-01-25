@@ -17,6 +17,14 @@ public class Game extends ApplicationAdapter {
 	private SpriteBatch batch;
 
     private final List<Projectile> projectilePool = new ArrayList<>();
+
+	private final Enemy enemy = new Enemy(
+			"badlogic.jpg",
+			300,
+			300,
+			150,
+			150
+	);
 	private final Player player = new Player(
 			"player.png",
 			PLAYER_WIDTH,
@@ -34,6 +42,8 @@ public class Game extends ApplicationAdapter {
 
 		this.player.create();
         this.projectileGenerator.create();
+
+		this.enemy.create();
 
 		Timer timer = new Timer();
 		timer.scheduleTask(new Timer.Task() {
@@ -53,12 +63,16 @@ public class Game extends ApplicationAdapter {
 
 		this.player.update();
 
+		this.enemy.update();
+
 		this.projectilePool.forEach(Projectile::update);
 
 		this.batch.begin();
 
 		// render player
 		this.player.draw(this.batch);
+
+		this.enemy.draw(this.batch);
 
 		// render projectiles.
 		this.projectilePool.forEach(new Consumer<Projectile>() {
