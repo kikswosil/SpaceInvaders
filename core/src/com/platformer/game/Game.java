@@ -18,13 +18,8 @@ public class Game extends ApplicationAdapter {
 
     private final List<Projectile> projectilePool = new ArrayList<>();
 
-	private final Enemy enemy = new Enemy(
-			"badlogic.jpg",
-			300,
-			300,
-			150,
-			150
-	);
+	private final List<Enemy> enemyPool = new ArrayList<>();
+
 	private final Player player = new Player(
 			"player.png",
 			PLAYER_WIDTH,
@@ -36,14 +31,32 @@ public class Game extends ApplicationAdapter {
 			this.projectilePool
 	);
 
+	private final EnemyGenerator enemyGenerator = new EnemyGenerator(
+			this.enemyPool,
+			new String[]{
+					"enemy1.png",
+					"enemy2.png",
+					"enemy3.png",
+					"enemy4.png",
+					"enemy5.png",
+					"enemy6.png",
+					"enemy7.png",
+					"enemy8.png",
+					"enemy9.png",
+					"enemy10.png",
+					"enemy11.png",
+					"enemy12.png",
+					"enemy13.png"
+			}
+	);
+
 	@Override
 	public void create () {
 		this.batch = new SpriteBatch();
 
 		this.player.create();
         this.projectileGenerator.create();
-
-		this.enemy.create();
+		this.enemyGenerator.create();
 
 		Timer timer = new Timer();
 		timer.scheduleTask(new Timer.Task() {
@@ -55,6 +68,13 @@ public class Game extends ApplicationAdapter {
 				PROJECTILE_GENERATION_DELAY,
 				PROJECTILE_GENERATION_INTERVAL
 		);
+
+		timer.scheduleTask(new Timer.Task() {
+			@Override
+			public void run() {
+				enemyGenerator.update();
+			}
+		}, 0.f, 2.f);
 	}
 
 	@Override
@@ -63,22 +83,27 @@ public class Game extends ApplicationAdapter {
 
 		this.player.update();
 
-		this.enemy.update();
 
 		this.projectilePool.forEach(Projectile::update);
+		this.enemyPool.forEach(Enemy::update);
 
 		this.batch.begin();
 
 		// render player
 		this.player.draw(this.batch);
 
-		this.enemy.draw(this.batch);
-
 		// render projectiles.
 		this.projectilePool.forEach(new Consumer<Projectile>() {
 			@Override
 			public void accept(Projectile projectile) {
 				projectile.draw(batch);
+			}
+		});
+
+		this.enemyPool.forEach(new Consumer<Enemy>() {
+			@Override
+			public void accept(Enemy enemy) {
+				enemy.draw(batch);
 			}
 		});
 

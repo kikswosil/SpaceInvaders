@@ -7,18 +7,18 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
-public class Enemy extends Sprite implements Collideable, Drawable, Updatable, Creatable {
+public class Enemy extends Sprite implements Collideable, Drawable, Updatable {
 
     public static final float VELOCITY_SCALAR = 250.f;
     private Vector2 velocity;
 
-    private String texturePath;
-    public Enemy(String texturePath, int x, int y, int width, int height) {
+    public Enemy(Texture texture, int x, int y, int width, int height) {
         this.setX(x);
         this.setY(y);
         this.setSize(width, height);
 
-        this.texturePath = texturePath;
+        this.setTexture(texture);
+        this.setRegion(0, texture.getHeight(), texture.getWidth(), -texture.getHeight());
 
         this.velocity = new Vector2(0, -3.f);
     }
@@ -26,13 +26,6 @@ public class Enemy extends Sprite implements Collideable, Drawable, Updatable, C
     @Override
     public Rectangle getHitBox() {
         return new Rectangle(this.getX(), this.getY(), this.getWidth(), this.getHeight());
-    }
-
-    @Override
-    public void create() {
-        Texture texture = new Texture(texturePath);
-        this.setTexture(texture);
-        this.setRegion(0, 0, texture.getWidth(), texture.getHeight());
     }
 
     @Override
