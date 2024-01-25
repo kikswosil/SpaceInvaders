@@ -12,16 +12,19 @@ import java.util.stream.Collectors;
 
 public class EnemyGenerator implements Creatable, Updatable {
 
-    public static final int ENEMY_WIDTH = 150;
+    public static final int ENEMY_WIDTH = 128;
+    public static final int ENEMY_HEIGHT = 64;
     private final List<Enemy> enemyPool;
+    private final List<Projectile> projectilePool;
     private final Random random = new Random();
 
     private List<Texture> textures = new ArrayList<>();
 
     private final String[] paths;
 
-    public EnemyGenerator(List<Enemy> enemyPool, String[] paths) {
+    public EnemyGenerator(List<Enemy> enemyPool, List<Projectile> projectilePool, String[] paths) {
         this.enemyPool = enemyPool;
+        this.projectilePool = projectilePool;
 
         this.paths = paths;
     }
@@ -39,12 +42,15 @@ public class EnemyGenerator implements Creatable, Updatable {
 
     @Override
     public void update() {
-        this.enemyPool.add(new Enemy(
-                this.textures.get(this.random.ints(0, this.textures.size()).findFirst().orElse(0)),
+        Texture texture = this.textures.get(this.random.ints(0, this.textures.size()).findFirst().orElse(0));
+        Enemy enemy = new Enemy(
+                texture,
                 this.random.ints(0, Gdx.graphics.getWidth() - ENEMY_WIDTH).findFirst().orElse(0),
                 Gdx.graphics.getHeight(),
                 ENEMY_WIDTH,
-                150
-        ));
+                texture.getHeight() * 2
+        );
+        enemy.setCollideablePool(this.projectilePool);
+        this.enemyPool.add(enemy);
     }
 }

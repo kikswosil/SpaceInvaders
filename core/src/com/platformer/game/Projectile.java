@@ -7,7 +7,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.TimeUtils;
 
 public class Projectile extends Sprite implements Drawable, Updatable, Collideable {
-    private static final int LIFETIME_LENGTH = 3000;
+    private static final int LIFETIME_LENGTH = 1000;
     private boolean shouldRemove = false;
     private long createdTimestamp = TimeUtils.millis();
     public Projectile(Texture texture, int x, int y, int width, int height) {

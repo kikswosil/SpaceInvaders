@@ -33,6 +33,7 @@ public class Game extends ApplicationAdapter {
 
 	private final EnemyGenerator enemyGenerator = new EnemyGenerator(
 			this.enemyPool,
+			this.projectilePool,
 			new String[]{
 					"enemy1.png",
 					"enemy2.png",
@@ -74,7 +75,7 @@ public class Game extends ApplicationAdapter {
 			public void run() {
 				enemyGenerator.update();
 			}
-		}, 0.f, 2.f);
+		}, 0.f, 1.f);
 	}
 
 	@Override
@@ -110,6 +111,7 @@ public class Game extends ApplicationAdapter {
 		this.batch.end();
 
 		this.projectilePool.removeIf(Projectile::shouldRemove);
+		this.enemyPool.removeIf(Enemy::shouldRemove);
 	}
 	
 	@Override
