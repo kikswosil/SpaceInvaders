@@ -16,6 +16,8 @@ public class Enemy extends Sprite implements Collideable, Drawable, Updatable {
     private Vector2 velocity;
     private boolean shouldRemove;
 
+    private int rewardedScore = 0;
+
     public Enemy(Texture texture, int x, int y, int width, int height) {
         this.setX(x);
         this.setY(y);
@@ -81,5 +83,13 @@ public class Enemy extends Sprite implements Collideable, Drawable, Updatable {
         );
 
         this.checkCollisions();
+    }
+
+    public void setRewardedScore(int value) {
+        this.rewardedScore = value;
+    }
+
+    public int getRewardedScore() {
+        return this.rewardedScore;
     }
 }

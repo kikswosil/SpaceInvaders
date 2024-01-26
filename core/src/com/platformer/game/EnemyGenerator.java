@@ -42,7 +42,8 @@ public class EnemyGenerator implements Creatable, Updatable {
 
     @Override
     public void update() {
-        Texture texture = this.textures.get(this.random.ints(0, this.textures.size()).findFirst().orElse(0));
+        int textureIndex = this.random.ints(0, this.textures.size()).findFirst().orElse(0);
+        Texture texture = this.textures.get(textureIndex);
         Enemy enemy = new Enemy(
                 texture,
                 this.random.ints(0, Gdx.graphics.getWidth() - ENEMY_WIDTH).findFirst().orElse(0),
@@ -51,6 +52,7 @@ public class EnemyGenerator implements Creatable, Updatable {
                 texture.getHeight() * 2
         );
         enemy.setCollideablePool(this.projectilePool);
+        enemy.setRewardedScore(10 * (textureIndex == 0 ? 1 : textureIndex));
         this.enemyPool.add(enemy);
     }
 }

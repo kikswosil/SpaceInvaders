@@ -1,6 +1,8 @@
 package com.platformer.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.Timer;
@@ -15,6 +17,7 @@ public class Game extends ApplicationAdapter {
 	public static final float PROJECTILE_GENERATION_INTERVAL = 0.3f;
 	public static final float PROJECTILE_GENERATION_DELAY = 0.f;
 	private SpriteBatch batch;
+    private BitmapFont font;
 
     private final List<Projectile> projectilePool = new ArrayList<>();
 
@@ -25,6 +28,8 @@ public class Game extends ApplicationAdapter {
 			PLAYER_WIDTH,
 			PLAYER_HEIGHT
 	);
+
+    private final ScoreCounter scoreCounter = new ScoreCounter();
 
     private final ProjectileGenerator projectileGenerator = new ProjectileGenerator(
 			this.player,
@@ -54,6 +59,9 @@ public class Game extends ApplicationAdapter {
 	@Override
 	public void create () {
 		this.batch = new SpriteBatch();
+
+        this.font = new BitmapFont();
+        this.font.getData().setScale(3f);
 
 		this.player.create();
         this.projectileGenerator.create();
@@ -108,7 +116,18 @@ public class Game extends ApplicationAdapter {
 			}
 		});
 
+        font.draw(this.batch, String.format("score: %d", this.scoreCounter.getScore()), 10, Gdx.graphics.getHeight() - 10);
+
 		this.batch.end();
+
+        enemyPool.forEach(new Consumer<Enemy>() {
+            @Override
+            public void accept(Enemy enemy) {
+                if(enemy.shouldRemove()) {
+                    scoreCounter.addToScore(enemy.getRewardedScore());
+                }
+            }
+        });
 
 		this.projectilePool.removeIf(Projectile::shouldRemove);
 		this.enemyPool.removeIf(Enemy::shouldRemove);
