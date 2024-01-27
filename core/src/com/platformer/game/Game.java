@@ -12,10 +12,16 @@ import java.util.List;
 import java.util.function.Consumer;
 
 public class Game extends ApplicationAdapter {
-	public static final int PLAYER_WIDTH = 128;
-	public static final int PLAYER_HEIGHT = 64;
-	public static final float PROJECTILE_GENERATION_INTERVAL = 0.3f;
-	public static final float PROJECTILE_GENERATION_DELAY = 0.f;
+	private static final int PLAYER_WIDTH = 128;
+	private static final int PLAYER_HEIGHT = 64;
+	private static final float PROJECTILE_GENERATION_INTERVAL = 0.3f;
+	private static final float PROJECTILE_GENERATION_DELAY = 0.f;
+	private static final float ENEMY_GENERATION_DELAY = 0.f;
+	private static final float ENEMY_GENERATION_INTERVAL = 1f;
+
+	private Timer enemyGenerationTimer;
+	private Timer projectileGenerationTimer;
+
 	private SpriteBatch batch;
     private BitmapFont font;
 
@@ -84,7 +90,15 @@ public class Game extends ApplicationAdapter {
 			public void run() {
 				enemyGenerator.update();
 			}
-		}, 0.f, 1.f);
+		}, ENEMY_GENERATION_DELAY, ENEMY_GENERATION_INTERVAL);
+
+		timer.scheduleTask(new Timer.Task() {
+
+			@Override
+			public void run() {
+				enemyGenerator.incrementGeneratedEnemies();
+			}
+		}, 30f, 30f);
 	}
 
 	@Override

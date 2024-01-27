@@ -12,8 +12,11 @@ import java.util.stream.Collectors;
 
 public class EnemyGenerator implements Creatable, Updatable {
 
-    public static final int ENEMY_WIDTH = 128;
-    public static final int ENEMY_HEIGHT = 64;
+    private static final int ENEMY_WIDTH = 128;
+    private static final int ENEMY_HEIGHT = 64;
+
+    private static final int GENERATION_MARGIN = 0;
+    private int generatedEnemies = 0;
     private final List<Enemy> enemyPool;
     private final List<Projectile> projectilePool;
     private final Random random = new Random();
@@ -40,19 +43,25 @@ public class EnemyGenerator implements Creatable, Updatable {
         }).collect(Collectors.toList());
     }
 
+    public void incrementGeneratedEnemies() {
+        this.generatedEnemies++;
+    }
+
     @Override
     public void update() {
-        int textureIndex = this.random.ints(0, this.textures.size()).findFirst().orElse(0);
-        Texture texture = this.textures.get(textureIndex);
-        Enemy enemy = new Enemy(
-                texture,
-                this.random.ints(0, Gdx.graphics.getWidth() - ENEMY_WIDTH).findFirst().orElse(0),
-                Gdx.graphics.getHeight(),
-                ENEMY_WIDTH,
-                texture.getHeight() * 2
-        );
-        enemy.setCollideablePool(this.projectilePool);
-        enemy.setRewardedScore(10 * (textureIndex == 0 ? 1 : textureIndex));
-        this.enemyPool.add(enemy);
+        for (int i = 0; i <= generatedEnemies; i++) {
+            int textureIndex = this.random.ints(0, this.textures.size()).findFirst().orElse(0);
+            Texture texture = this.textures.get(textureIndex);
+            Enemy enemy = new Enemy(
+                    texture,
+                    this.random.ints(GENERATION_MARGIN, Gdx.graphics.getWidth() - ENEMY_WIDTH - GENERATION_MARGIN).findFirst().orElse(0),
+                    Gdx.graphics.getHeight(),
+                    ENEMY_WIDTH,
+                    texture.getHeight() * 2
+            );
+            enemy.setCollideablePool(this.projectilePool);
+            enemy.setRewardedScore(10 * (textureIndex == 0 ? 1 : textureIndex));
+            this.enemyPool.add(enemy);
+        }
     }
 }
