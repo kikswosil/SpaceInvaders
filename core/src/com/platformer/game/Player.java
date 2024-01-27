@@ -7,6 +7,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
+import java.util.List;
+import java.util.function.Consumer;
+
 public class Player extends Sprite implements Creatable, Updatable, Drawable, Collideable{
 
     public static final float SPEED_SCALAR = 400.f;
@@ -14,16 +17,21 @@ public class Player extends Sprite implements Creatable, Updatable, Drawable, Co
     private final Vector2 velocity;
     private final DesktopInputController controller = new PlayerController(this);
 
-    public Player(String texturePath, Rectangle initialHitBox) {
+    private final List<Enemy> enemyList;
+    private boolean isDead = false;
+
+    public Player(String texturePath, List<Enemy> enemyList, Rectangle initialHitBox) {
         this.texturePath = texturePath;
+        this.enemyList = enemyList;
 
         this.setSize(initialHitBox.width, initialHitBox.height);
 
         this.velocity = new Vector2(0, 0);
     }
 
-    public Player(String texturePath, int width, int height) {
+    public Player(String texturePath, List<Enemy> enemyList, int width, int height) {
         this.texturePath = texturePath;
+        this.enemyList = enemyList;
 
         this.setSize(width, height);
 
@@ -57,6 +65,22 @@ public class Player extends Sprite implements Creatable, Updatable, Drawable, Co
         );
     }
 
+    private boolean isColliding(Collideable collideable) {
+        Rectangle projectileHitBox = collideable.getHitBox();
+        return projectileHitBox.x + projectileHitBox.width > getX()  &&
+                projectileHitBox.x < getX() + getWidth()              &&
+                projectileHitBox.y + projectileHitBox.height > getY() &&
+                projectileHitBox.y < getY() + getHeight();
+    }
+
+    private void setDead(boolean isDead) {
+        this.isDead = isDead;
+    }
+
+    public boolean isDead() {
+        return this.isDead;
+    }
+
     @Override
     public void update() {
 
@@ -67,6 +91,15 @@ public class Player extends Sprite implements Creatable, Updatable, Drawable, Co
                 this.getX() + this.velocity.x * Gdx.graphics.getDeltaTime(),
                 this.getY() + this.velocity.y * Gdx.graphics.getDeltaTime()
         );
+
+        this.enemyList.forEach(new Consumer<Enemy>() {
+            @Override
+            public void accept(Enemy enemy) {
+                if(isColliding(enemy)) {
+                    setDead(true);
+                }
+            }
+        });
     }
 
     @Override

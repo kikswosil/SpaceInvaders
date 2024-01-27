@@ -25,6 +25,7 @@ public class Game extends ApplicationAdapter {
 
 	private final Player player = new Player(
 			"player.png",
+			enemyPool,
 			PLAYER_WIDTH,
 			PLAYER_HEIGHT
 	);
@@ -90,7 +91,11 @@ public class Game extends ApplicationAdapter {
 	public void render () {
 		ScreenUtils.clear(0, 0, 0, 1);
 
+		// TODO: add death interface.
+		if(this.player.isDead()) return;
+
 		this.player.update();
+
 
 		this.projectilePool.forEach(Projectile::update);
 		this.enemyPool.forEach(Enemy::update);
