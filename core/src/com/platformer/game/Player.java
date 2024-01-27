@@ -7,16 +7,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-
 public class Player extends Sprite implements Creatable, Updatable, Drawable, Collideable{
 
     public static final float SPEED_SCALAR = 400.f;
     private final String texturePath;
     private final Vector2 velocity;
-    private List<Collideable> collideables = new ArrayList<>();
     private final DesktopInputController controller = new PlayerController(this);
 
     public Player(String texturePath, Rectangle initialHitBox) {
@@ -33,9 +28,6 @@ public class Player extends Sprite implements Creatable, Updatable, Drawable, Co
         this.setSize(width, height);
 
         this.velocity = new Vector2(0, 0);
-    }
-    public void addToCollideables(Collideable collideable) {
-        this.collideables.add(collideable);
     }
 
     public void setVelocityX(float x) {
@@ -75,10 +67,6 @@ public class Player extends Sprite implements Creatable, Updatable, Drawable, Co
                 this.getX() + this.velocity.x * Gdx.graphics.getDeltaTime(),
                 this.getY() + this.velocity.y * Gdx.graphics.getDeltaTime()
         );
-
-        this.collideables = this.collideables.stream()
-                .filter(collideable -> !collideable.shouldRemove())
-                .collect(Collectors.toList());
     }
 
     @Override

@@ -92,7 +92,6 @@ public class Game extends ApplicationAdapter {
 
 		this.player.update();
 
-
 		this.projectilePool.forEach(Projectile::update);
 		this.enemyPool.forEach(Enemy::update);
 
