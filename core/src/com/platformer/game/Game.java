@@ -19,9 +19,6 @@ public class Game extends ApplicationAdapter {
 	private static final float ENEMY_GENERATION_DELAY = 0.f;
 	private static final float ENEMY_GENERATION_INTERVAL = 1f;
 
-	private Timer enemyGenerationTimer;
-	private Timer projectileGenerationTimer;
-
 	private SpriteBatch batch;
     private BitmapFont font;
 
@@ -105,7 +102,6 @@ public class Game extends ApplicationAdapter {
 	public void render () {
 		ScreenUtils.clear(0, 0, 0, 1);
 
-		// TODO: add death interface.
 		if (this.player.isDead()) {
 			new DeathView(this.font, this.scoreCounter.getScore()).draw(this.batch);
 			return;
