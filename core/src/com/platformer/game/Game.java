@@ -92,7 +92,10 @@ public class Game extends ApplicationAdapter {
 		ScreenUtils.clear(0, 0, 0, 1);
 
 		// TODO: add death interface.
-		if(this.player.isDead()) return;
+		if (this.player.isDead()) {
+			new DeathView(this.font, this.scoreCounter.getScore()).draw(this.batch);
+			return;
+		}
 
 		this.player.update();
 
@@ -120,18 +123,18 @@ public class Game extends ApplicationAdapter {
 			}
 		});
 
-        font.draw(this.batch, String.format("score: %d", this.scoreCounter.getScore()), 10, Gdx.graphics.getHeight() - 10);
+		font.draw(this.batch, String.format("score: %d", this.scoreCounter.getScore()), 10, Gdx.graphics.getHeight() - 10);
 
 		this.batch.end();
 
-        enemyPool.forEach(new Consumer<Enemy>() {
-            @Override
-            public void accept(Enemy enemy) {
-                if(enemy.shouldRemove()) {
-                    scoreCounter.addToScore(enemy.getRewardedScore());
-                }
-            }
-        });
+		enemyPool.forEach(new Consumer<Enemy>() {
+			@Override
+			public void accept(Enemy enemy) {
+				if (enemy.shouldRemove()) {
+					scoreCounter.addToScore(enemy.getRewardedScore());
+				}
+			}
+		});
 
 		this.projectilePool.removeIf(Projectile::shouldRemove);
 		this.enemyPool.removeIf(Enemy::shouldRemove);
