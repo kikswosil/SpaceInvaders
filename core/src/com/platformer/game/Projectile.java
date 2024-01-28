@@ -9,7 +9,7 @@ import com.badlogic.gdx.utils.TimeUtils;
 public class Projectile extends Sprite implements Drawable, Updatable, Collideable {
     private static final int LIFETIME_LENGTH = 1000;
     private boolean shouldRemove = false;
-    private long createdTimestamp = TimeUtils.millis();
+    private final long createdTimestamp = TimeUtils.millis();
     public Projectile(Texture texture, int x, int y, int width, int height) {
         this.setTexture(texture);
 
@@ -40,7 +40,7 @@ public class Projectile extends Sprite implements Drawable, Updatable, Collideab
                 this.getX(),
                 this.getY() + 5
         );
-        // limits lifetime length of a projectile to LIFETIME_LENGTH. (1.6s)
+        // limits lifetime length of a projectile to LIFETIME_LENGTH.
         if(TimeUtils.timeSinceMillis(this.createdTimestamp) > LIFETIME_LENGTH) this.shouldRemove = true;
     }
 

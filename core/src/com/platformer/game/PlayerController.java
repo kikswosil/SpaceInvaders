@@ -7,9 +7,6 @@ import static com.badlogic.gdx.Gdx.input;
 public class PlayerController implements DesktopInputController{
     private final Player player;
 
-    private final float VERTICAL_SPEED = 3.f;
-    private final float HORIZONTAL_SPEED = 3.f;
-
     public PlayerController(Player player) {
         this.player = player;
     }

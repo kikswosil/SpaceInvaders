@@ -52,6 +52,7 @@ public class EnemyGenerator implements Creatable, Updatable {
         for (int i = 0; i <= generatedEnemies; i++) {
             int textureIndex = this.random.ints(0, this.textures.size()).findFirst().orElse(0);
             Texture texture = this.textures.get(textureIndex);
+            // REFACTOR: REPLACE THIS WITH A BUILDER PATTERN.
             Enemy enemy = new Enemy(
                     texture,
                     this.random.ints(GENERATION_MARGIN, Gdx.graphics.getWidth() - ENEMY_WIDTH - GENERATION_MARGIN).findFirst().orElse(0),

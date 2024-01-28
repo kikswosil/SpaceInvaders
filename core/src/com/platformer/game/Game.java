@@ -12,6 +12,8 @@ import java.util.List;
 import java.util.function.Consumer;
 
 public class Game extends ApplicationAdapter {
+
+    // Constants
 	private static final int PLAYER_WIDTH = 128;
 	private static final int PLAYER_HEIGHT = 64;
 	private static final float PROJECTILE_GENERATION_INTERVAL = 0.3f;
@@ -62,14 +64,19 @@ public class Game extends ApplicationAdapter {
 
 	@Override
 	public void create () {
+        // create game utils.
 		this.batch = new SpriteBatch();
 
         this.font = new BitmapFont();
         this.font.getData().setScale(3f);
 
+        // create game objects.
 		this.player.create();
         this.projectileGenerator.create();
 		this.enemyGenerator.create();
+
+        // handle time events.
+        // (ex. enemy generation, difficulty progression)
 
 		Timer timer = new Timer();
 		timer.scheduleTask(new Timer.Task() {
@@ -102,14 +109,16 @@ public class Game extends ApplicationAdapter {
 	public void render () {
 		ScreenUtils.clear(0, 0, 0, 1);
 
+        // draw player death screen, if player is dead.
 		if (this.player.isDead()) {
 			new DeathView(this.font, this.scoreCounter.getScore()).draw(this.batch);
 			return;
 		}
 
+        // update player
 		this.player.update();
 
-
+        // update enemies and projectiles.
 		this.projectilePool.forEach(Projectile::update);
 		this.enemyPool.forEach(Enemy::update);
 
@@ -126,6 +135,7 @@ public class Game extends ApplicationAdapter {
 			}
 		});
 
+        // render enemies.
 		this.enemyPool.forEach(new Consumer<Enemy>() {
 			@Override
 			public void accept(Enemy enemy) {
@@ -133,10 +143,13 @@ public class Game extends ApplicationAdapter {
 			}
 		});
 
-		font.draw(this.batch, String.format("score: %d", this.scoreCounter.getScore()), 10, Gdx.graphics.getHeight() - 10);
+        // REFACTOR: MOVE THIS TO SCORE COUNTER.
+		this.font.draw(this.batch, String.format("score: %d", this.scoreCounter.getScore()), 10, Gdx.graphics.getHeight() - 10);
 
 		this.batch.end();
 
+        // count score.
+        // REFACTOR: MOVE THIS TO SCORE COUNTER.
 		enemyPool.forEach(new Consumer<Enemy>() {
 			@Override
 			public void accept(Enemy enemy) {
@@ -146,6 +159,7 @@ public class Game extends ApplicationAdapter {
 			}
 		});
 
+        // remove items from update lists.
 		this.projectilePool.removeIf(Projectile::shouldRemove);
 		this.enemyPool.removeIf(Enemy::shouldRemove);
 	}

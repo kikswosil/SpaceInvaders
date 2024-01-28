@@ -14,7 +14,7 @@ public class Player extends Sprite implements Creatable, Updatable, Drawable, Co
 
     public static final float SPEED_SCALAR = 400.f;
     private final String texturePath;
-    private final Vector2 velocity;
+    private final Vector2 velocity = new Vector2(0, 0);
     private final DesktopInputController controller = new PlayerController(this);
 
     private final List<Enemy> enemyList;
@@ -25,8 +25,6 @@ public class Player extends Sprite implements Creatable, Updatable, Drawable, Co
         this.enemyList = enemyList;
 
         this.setSize(initialHitBox.width, initialHitBox.height);
-
-        this.velocity = new Vector2(0, 0);
     }
 
     public Player(String texturePath, List<Enemy> enemyList, int width, int height) {
@@ -34,8 +32,6 @@ public class Player extends Sprite implements Creatable, Updatable, Drawable, Co
         this.enemyList = enemyList;
 
         this.setSize(width, height);
-
-        this.velocity = new Vector2(0, 0);
     }
 
     public void setVelocityX(float x) {
@@ -65,6 +61,7 @@ public class Player extends Sprite implements Creatable, Updatable, Drawable, Co
         );
     }
 
+    // REFACTOR: MOVE THIS TO A CollisionManager CLASS.
     private boolean isColliding(Collideable collideable) {
         Rectangle projectileHitBox = collideable.getHitBox();
         return projectileHitBox.x + projectileHitBox.width > getX()  &&
