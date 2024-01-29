@@ -11,16 +11,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
+import static com.platformer.game.Const.Player.*;
+import static com.platformer.game.Const.Enemy.*;
+import static com.platformer.game.Const.Projectile.*;
+
 public class Game extends ApplicationAdapter {
-
-    // Constants
-	private static final int PLAYER_WIDTH = 128;
-	private static final int PLAYER_HEIGHT = 64;
-	private static final float PROJECTILE_GENERATION_INTERVAL = 0.3f;
-	private static final float PROJECTILE_GENERATION_DELAY = 0.f;
-	private static final float ENEMY_GENERATION_DELAY = 0.f;
-	private static final float ENEMY_GENERATION_INTERVAL = 1f;
-
 	private SpriteBatch batch;
     private BitmapFont font;
 

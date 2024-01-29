@@ -9,9 +9,10 @@ import com.badlogic.gdx.math.Vector2;
 
 import java.util.List;
 
+import static com.platformer.game.Const.Enemy.*;
+
 public class Enemy extends Sprite implements Collideable, Drawable, Updatable {
 
-    public static final float VELOCITY_SCALAR = 250.f;
     private List<Projectile> projectiles;
     private Vector2 velocity;
     private boolean shouldRemove;
@@ -75,7 +76,7 @@ public class Enemy extends Sprite implements Collideable, Drawable, Updatable {
     @Override
     public void update() {
 
-        this.velocity.nor().scl(VELOCITY_SCALAR);
+        this.velocity.nor().scl(ENEMY_VELOCITY_SCALAR);
 
         this.setPosition(
                 this.getX() + this.velocity.x * Gdx.graphics.getDeltaTime(),

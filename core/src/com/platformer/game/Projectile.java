@@ -6,8 +6,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.TimeUtils;
 
+import static com.platformer.game.Const.Projectile.*;
+
 public class Projectile extends Sprite implements Drawable, Updatable, Collideable {
-    private static final int LIFETIME_LENGTH = 1000;
     private boolean shouldRemove = false;
     private final long createdTimestamp = TimeUtils.millis();
     public Projectile(Texture texture, int x, int y, int width, int height) {
@@ -41,7 +42,7 @@ public class Projectile extends Sprite implements Drawable, Updatable, Collideab
                 this.getY() + 5
         );
         // limits lifetime length of a projectile to LIFETIME_LENGTH.
-        if(TimeUtils.timeSinceMillis(this.createdTimestamp) > LIFETIME_LENGTH) this.shouldRemove = true;
+        if(TimeUtils.timeSinceMillis(this.createdTimestamp) > PROJECTILE_LIFETIME_LENGTH) this.shouldRemove = true;
     }
 
     @Override

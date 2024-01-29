@@ -6,11 +6,9 @@ import com.badlogic.gdx.graphics.Texture;
 
 import java.util.List;
 
+import static com.platformer.game.Const.Projectile.*;
+
 public class ProjectileGenerator implements Creatable, Updatable {
-    public static final int PROJECTILE_TEXTURE_WIDTH = 64;
-    public static final int PROJECTILE_TEXTURE_HEIGHT = 64;
-    public static final int PROJECTILE_WIDTH = 3;
-    private static final int PROJECTILE_LENGTH = 15;
     private Texture texture;
     private final Player player;
     private final List<Projectile> projectilePool;
@@ -31,16 +29,16 @@ public class ProjectileGenerator implements Creatable, Updatable {
     @Override
     public void create() {
         Pixmap image = new Pixmap(
-                PROJECTILE_TEXTURE_WIDTH,
-                PROJECTILE_TEXTURE_HEIGHT,
+                PROJECTILE_TEXTURE_SIZE,
+                PROJECTILE_TEXTURE_SIZE,
                 Pixmap.Format.RGBA8888
         );
         image.setColor(Color.WHITE);
         image.fillRectangle(
                 0,
                 0,
-                PROJECTILE_TEXTURE_WIDTH,
-                PROJECTILE_TEXTURE_HEIGHT
+                PROJECTILE_TEXTURE_SIZE,
+                PROJECTILE_TEXTURE_SIZE
         );
         this.texture = new Texture(image);
         image.dispose();

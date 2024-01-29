@@ -2,12 +2,14 @@ package com.platformer.game;
 
 import com.badlogic.gdx.Gdx;
 
+import static com.platformer.game.Const.Player.*;
+
 public enum Direction {
 
     UP(new MovementImplementation() {
         @Override
         public void onCanMove(Player player) {
-            player.setVelocityY(Direction.VERTICAL_SPEED);
+            player.setVelocityY(PLAYER_VERTICAL_VELOCITY);
         }
 
         @Override
@@ -28,7 +30,7 @@ public enum Direction {
 
         @Override
         public void onCanMove(Player player) {
-            player.setVelocityY(-Direction.VERTICAL_SPEED);
+            player.setVelocityY(-PLAYER_VERTICAL_VELOCITY);
         }
 
         @Override
@@ -44,7 +46,7 @@ public enum Direction {
 
         @Override
         public void onCanMove(Player player) {
-            player.setVelocityX(-Direction.HORIZONTAL_SPEED);
+            player.setVelocityX(-PLAYER_HORIZONTAL_VELOCITY);
         }
 
         @Override
@@ -60,7 +62,7 @@ public enum Direction {
 
         @Override
         public void onCanMove(Player player) {
-            player.setVelocityX(Direction.HORIZONTAL_SPEED);
+            player.setVelocityX(PLAYER_HORIZONTAL_VELOCITY);
         }
 
         @Override

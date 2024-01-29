@@ -10,12 +10,10 @@ import java.util.Random;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import static com.platformer.game.Const.Enemy.*;
+
 public class EnemyGenerator implements Creatable, Updatable {
 
-    private static final int ENEMY_WIDTH = 128;
-    private static final int ENEMY_HEIGHT = 64;
-
-    private static final int GENERATION_MARGIN = 0;
     private int generatedEnemies = 0;
     private final List<Enemy> enemyPool;
     private final List<Projectile> projectilePool;
@@ -55,7 +53,10 @@ public class EnemyGenerator implements Creatable, Updatable {
             // REFACTOR: REPLACE THIS WITH A BUILDER PATTERN.
             Enemy enemy = new Enemy(
                     texture,
-                    this.random.ints(GENERATION_MARGIN, Gdx.graphics.getWidth() - ENEMY_WIDTH - GENERATION_MARGIN).findFirst().orElse(0),
+                    this.random.ints(
+                            ENEMY_GENERATION_FIELD_MARGIN,
+                            Gdx.graphics.getWidth() - ENEMY_WIDTH - ENEMY_GENERATION_FIELD_MARGIN
+                    ).findFirst().orElse(0),
                     Gdx.graphics.getHeight(),
                     ENEMY_WIDTH,
                     texture.getHeight() * 2

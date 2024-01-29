@@ -10,9 +10,10 @@ import com.badlogic.gdx.math.Vector2;
 import java.util.List;
 import java.util.function.Consumer;
 
+import static com.platformer.game.Const.Player.*;
+
 public class Player extends Sprite implements Creatable, Updatable, Drawable, Collideable{
 
-    public static final float SPEED_SCALAR = 400.f;
     private final String texturePath;
     private final Vector2 velocity = new Vector2(0, 0);
     private final DesktopInputController controller = new PlayerController(this);
@@ -83,7 +84,7 @@ public class Player extends Sprite implements Creatable, Updatable, Drawable, Co
 
         this.controller.process();
 
-        this.velocity.nor().scl(SPEED_SCALAR);
+        this.velocity.nor().scl(PLAYER_VELOCITY_SCALAR);
         this.setPosition(
                 this.getX() + this.velocity.x * Gdx.graphics.getDeltaTime(),
                 this.getY() + this.velocity.y * Gdx.graphics.getDeltaTime()
