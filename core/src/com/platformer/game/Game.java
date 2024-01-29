@@ -30,7 +30,7 @@ public class Game extends ApplicationAdapter {
 			PLAYER_HEIGHT
 	);
 
-    private final ScoreCounter scoreCounter = new ScoreCounter();
+    private final ScoreCounter scoreCounter = new ScoreCounter(this.enemyPool);
 
     private final ProjectileGenerator projectileGenerator = new ProjectileGenerator(
 			this.player,
@@ -64,6 +64,8 @@ public class Game extends ApplicationAdapter {
 
         this.font = new BitmapFont();
         this.font.getData().setScale(3f);
+
+		this.scoreCounter.create();
 
         // create game objects.
 		this.player.create();
@@ -138,21 +140,12 @@ public class Game extends ApplicationAdapter {
 			}
 		});
 
-        // REFACTOR: MOVE THIS TO SCORE COUNTER.
-		this.font.draw(this.batch, String.format("score: %d", this.scoreCounter.getScore()), 10, Gdx.graphics.getHeight() - 10);
+		this.scoreCounter.draw(this.batch);
 
 		this.batch.end();
 
         // count score.
-        // REFACTOR: MOVE THIS TO SCORE COUNTER.
-		enemyPool.forEach(new Consumer<Enemy>() {
-			@Override
-			public void accept(Enemy enemy) {
-				if (enemy.shouldRemove()) {
-					scoreCounter.addToScore(enemy.getRewardedScore());
-				}
-			}
-		});
+		this.scoreCounter.update();
 
         // remove items from update lists.
 		this.projectilePool.removeIf(Projectile::shouldRemove);
