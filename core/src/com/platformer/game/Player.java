@@ -10,7 +10,7 @@ import com.badlogic.gdx.math.Vector2;
 import java.util.List;
 import java.util.function.Consumer;
 
-import static com.platformer.game.Const.Player.*;
+import static com.platformer.game.Const.Player.PLAYER_VELOCITY_SCALAR;
 
 public class Player extends Sprite implements Creatable, Updatable, Drawable, Collideable{
 

@@ -2,7 +2,8 @@ package com.platformer.game;
 
 import com.badlogic.gdx.Gdx;
 
-import static com.platformer.game.Const.Player.*;
+import static com.platformer.game.Const.Player.PLAYER_HORIZONTAL_VELOCITY;
+import static com.platformer.game.Const.Player.PLAYER_VERTICAL_VELOCITY;
 
 public enum Direction {
 

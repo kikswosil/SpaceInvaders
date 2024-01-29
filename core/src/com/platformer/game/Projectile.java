@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.TimeUtils;
 
-import static com.platformer.game.Const.Projectile.*;
+import static com.platformer.game.Const.Projectile.PROJECTILE_LIFETIME_LENGTH;
 
 public class Projectile extends Sprite implements Drawable, Updatable, Collideable {
     private boolean shouldRemove = false;

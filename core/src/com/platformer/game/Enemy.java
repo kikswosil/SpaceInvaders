@@ -9,7 +9,7 @@ import com.badlogic.gdx.math.Vector2;
 
 import java.util.List;
 
-import static com.platformer.game.Const.Enemy.*;
+import static com.platformer.game.Const.Enemy.ENEMY_VELOCITY_SCALAR;
 
 public class Enemy extends Sprite implements Collideable, Drawable, Updatable {
 

@@ -10,7 +10,8 @@ import java.util.Random;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import static com.platformer.game.Const.Enemy.*;
+import static com.platformer.game.Const.Enemy.ENEMY_GENERATION_FIELD_MARGIN;
+import static com.platformer.game.Const.Enemy.ENEMY_WIDTH;
 
 public class EnemyGenerator implements Creatable, Updatable {
 

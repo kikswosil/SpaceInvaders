@@ -1,7 +1,6 @@
 package com.platformer.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -11,9 +10,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
-import static com.platformer.game.Const.Player.*;
-import static com.platformer.game.Const.Enemy.*;
-import static com.platformer.game.Const.Projectile.*;
+import static com.platformer.game.Const.Enemy.ENEMY_GENERATION_DELAY;
+import static com.platformer.game.Const.Enemy.ENEMY_GENERATION_INTERVAL;
+import static com.platformer.game.Const.Player.PLAYER_HEIGHT;
+import static com.platformer.game.Const.Player.PLAYER_WIDTH;
+import static com.platformer.game.Const.Projectile.PROJECTILE_GENERATION_DELAY;
+import static com.platformer.game.Const.Projectile.PROJECTILE_GENERATION_INTERVAL;
 
 public class Game extends ApplicationAdapter {
 	private SpriteBatch batch;
