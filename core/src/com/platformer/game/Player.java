@@ -93,7 +93,7 @@ public class Player extends Sprite implements Creatable, Updatable, Drawable, Co
                 this.getX(),
                 this.getY(),
                 this.getWidth(),
-                this.getY()
+                this.getHeight()
         );
     }
 }
