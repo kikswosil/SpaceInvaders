@@ -36,7 +36,7 @@ public class Enemy extends Sprite implements Collideable, Drawable, Updatable {
 
     private void checkCollisions() {
         this.projectiles.forEach(projectile -> {
-            if(isColliding(projectile)) setShouldRemove(true);
+            if(CollisionUtil.isColliding(this, projectile)) setShouldRemove(true);
         });
     }
 
@@ -47,14 +47,6 @@ public class Enemy extends Sprite implements Collideable, Drawable, Updatable {
     @Override
     public boolean shouldRemove() {
         return this.shouldRemove;
-    }
-
-    private boolean isColliding(Collideable collideable) {
-        Rectangle projectileHitBox = collideable.getHitBox();
-        return projectileHitBox.x + projectileHitBox.width > getX()  &&
-               projectileHitBox.x < getX() + getWidth()              &&
-               projectileHitBox.y + projectileHitBox.height > getY() &&
-               projectileHitBox.y < getY() + getHeight();
     }
 
     @Override

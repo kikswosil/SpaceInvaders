@@ -8,7 +8,6 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 import java.util.List;
-import java.util.function.Consumer;
 
 import static com.platformer.game.Const.Player.PLAYER_VELOCITY_SCALAR;
 
@@ -62,15 +61,6 @@ public class Player extends Sprite implements Creatable, Updatable, Drawable, Co
         );
     }
 
-    // REFACTOR: MOVE THIS TO A CollisionManager CLASS.
-    private boolean isColliding(Collideable collideable) {
-        Rectangle projectileHitBox = collideable.getHitBox();
-        return projectileHitBox.x + projectileHitBox.width > getX()  &&
-                projectileHitBox.x < getX() + getWidth()              &&
-                projectileHitBox.y + projectileHitBox.height > getY() &&
-                projectileHitBox.y < getY() + getHeight();
-    }
-
     private void setDead(boolean isDead) {
         this.isDead = isDead;
     }
@@ -90,12 +80,9 @@ public class Player extends Sprite implements Creatable, Updatable, Drawable, Co
                 this.getY() + this.velocity.y * Gdx.graphics.getDeltaTime()
         );
 
-        this.enemyList.forEach(new Consumer<Enemy>() {
-            @Override
-            public void accept(Enemy enemy) {
-                if(isColliding(enemy)) {
-                    setDead(true);
-                }
+        this.enemyList.forEach(enemy -> {
+            if(CollisionUtil.isColliding(this, enemy)) {
+                setDead(true);
             }
         });
     }
