@@ -13,13 +13,22 @@ import static com.platformer.game.Const.Enemy.ENEMY_VELOCITY_SCALAR;
 
 public class Enemy extends Sprite implements Collideable, Drawable, Updatable {
 
-    private List<Projectile> projectiles;
-    private Vector2 velocity;
+    private final List<Projectile> projectiles;
+    private final Vector2 velocity = new Vector2(0, -3.f);
     private boolean shouldRemove;
 
     private int rewardedScore = 0;
 
-    public Enemy(Texture texture, int x, int y, int width, int height) {
+    public Enemy(
+            Texture texture,
+            int x,
+            int y,
+            int width,
+            int height,
+            List<Projectile> collideablePool,
+            List<Enemy> enemyPool,
+            int rewardedScore
+    ) {
         this.setX(x);
         this.setY(y);
         this.setSize(width, height);
@@ -27,21 +36,16 @@ public class Enemy extends Sprite implements Collideable, Drawable, Updatable {
         this.setTexture(texture);
         this.setRegion(0, texture.getHeight(), texture.getWidth(), -texture.getHeight());
 
-        this.velocity = new Vector2(0, -3.f);
-    }
+        this.projectiles = collideablePool;
+        this.rewardedScore = rewardedScore;
 
-    public void setCollideablePool(List<Projectile> collideables) {
-        this.projectiles = collideables;
+        enemyPool.add(this);
     }
 
     private void checkCollisions() {
         this.projectiles.forEach(projectile -> {
-            if(CollisionUtil.isColliding(this, projectile)) setShouldRemove(true);
+            if(CollisionUtil.isColliding(this, projectile)) Enemy.this.shouldRemove = true;
         });
-    }
-
-    private void setShouldRemove(boolean shouldRemove) {
-        this.shouldRemove = shouldRemove;
     }
 
     @Override
@@ -77,11 +81,6 @@ public class Enemy extends Sprite implements Collideable, Drawable, Updatable {
 
         this.checkCollisions();
     }
-
-    public void setRewardedScore(int value) {
-        this.rewardedScore = value;
-    }
-
     public int getRewardedScore() {
         return this.rewardedScore;
     }
