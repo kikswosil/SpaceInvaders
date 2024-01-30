@@ -13,6 +13,8 @@ public class EnemyBuilder {
     private int score;
     private List<Projectile> collideablePool;
     private List<Enemy> enemyPool;
+    private int rewardedScore;
+
     public EnemyBuilder setTexture(Texture texture) {
         this.texture = texture;
         return this;
@@ -45,7 +47,27 @@ public class EnemyBuilder {
         return this;
     }
 
-    public Enemy getEnemy() {
+    public EnemyBuilder setX(int x) {
+        this.x = x;
+        return this;
+    }
+
+    public EnemyBuilder setY(int y) {
+        this.y = y;
+        return this;
+    }
+
+    public EnemyBuilder setWidth(int width) {
+        this.width = width;
+        return this;
+    }
+
+    public EnemyBuilder setHeight(int height) {
+        this.height = height;
+        return this;
+    }
+
+    public Enemy createEnemy() {
         return new Enemy(
                 this.texture,
                 this.x,
@@ -57,4 +79,5 @@ public class EnemyBuilder {
                 this.score
         );
     }
+
 }

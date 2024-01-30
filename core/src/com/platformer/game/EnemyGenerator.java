@@ -69,7 +69,7 @@ public class EnemyGenerator implements Creatable, Updatable {
                     .setRewardedScore(10 * (textureIndex == 0 ? 1 : textureIndex))
                     .setCollideablePool(this.projectilePool)
                     .setEnemyPool(this.enemyPool)
-            .getEnemy();
+            .createEnemy();
         }
     }
 }
