@@ -99,7 +99,7 @@ public class Game extends ApplicationAdapter {
 
 			@Override
 			public void run() {
-				enemyGenerator.incrementGeneratedEnemies();
+				enemyGenerator.doDifficultyProgression();
 			}
 		}, 30f, 30f);
 	}

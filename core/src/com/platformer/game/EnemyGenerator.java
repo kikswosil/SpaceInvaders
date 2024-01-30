@@ -43,7 +43,7 @@ public class EnemyGenerator implements Creatable, Updatable {
         }).collect(Collectors.toList());
     }
 
-    public void incrementGeneratedEnemies() {
+    public void doDifficultyProgression() {
         this.generatedEnemies++;
     }
 
