@@ -43,19 +43,19 @@ public class Game extends ApplicationAdapter {
 			this.enemyPool,
 			this.projectilePool,
 			new String[]{
-					"enemy1.png",
-					"enemy2.png",
-					"enemy3.png",
-					"enemy4.png",
-					"enemy5.png",
-					"enemy6.png",
-					"enemy7.png",
-					"enemy8.png",
-					"enemy9.png",
-					"enemy10.png",
-					"enemy11.png",
-					"enemy12.png",
-					"enemy13.png"
+					"fly.png",
+					"dragonfly.png",
+					"mantis.png",
+					"cicada.png",
+					"mosquito.png",
+					"bee.png",
+					"hornet.png",
+					"bumblebee.png",
+					"wasp.png",
+					"ant.png",
+					"moth.png",
+					"earwig.png",
+					"termite.png"
 			}
 	);
 
