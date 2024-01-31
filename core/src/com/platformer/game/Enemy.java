@@ -6,8 +6,11 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.TimeUtils;
 
 import java.util.List;
+
+import static com.platformer.game.Const.Enemy.ENEMY_LIFETIME_LENGTH;
 
 
 public class Enemy extends Sprite implements Collideable, Drawable, Updatable {
@@ -18,6 +21,9 @@ public class Enemy extends Sprite implements Collideable, Drawable, Updatable {
     private boolean shouldRemove;
 
     private int rewardedScore = 0;
+
+    private final long createdTimestamp = TimeUtils.millis();
+    private boolean shouldRewardScore = false;
 
     public Enemy(
             Texture texture,
@@ -48,6 +54,7 @@ public class Enemy extends Sprite implements Collideable, Drawable, Updatable {
         this.projectiles.forEach(projectile -> {
             if(CollisionUtil.isColliding(this, projectile)) {
                 Enemy.this.shouldRemove = true;
+                Enemy.this.shouldRewardScore = true;
                 projectile.setShouldRemove(true);
             }
         });
@@ -85,8 +92,13 @@ public class Enemy extends Sprite implements Collideable, Drawable, Updatable {
         );
 
         this.checkCollisions();
+        if(TimeUtils.timeSinceMillis(this.createdTimestamp) > ENEMY_LIFETIME_LENGTH) this.shouldRemove = true;
     }
     public int getRewardedScore() {
         return this.rewardedScore;
+    }
+
+    public boolean shouldRewardScore() {
+        return this.shouldRewardScore;
     }
 }

@@ -16,6 +16,7 @@ public class Const {
         public static final float ENEMY_GENERATION_DELAY = 0.f;
         public static final float ENEMY_VELOCITY_SCALAR_LOW = 250.f;
         public static final float ENEMY_VELOCITY_SCALAR_HIGH = 500.f;
+        public static final long ENEMY_LIFETIME_LENGTH = 10_000L;
         public static final int ENEMY_WIDTH = 128;
         public static final int ENEMY_HEIGHT = 64;
         public static final int ENEMY_GENERATION_FIELD_MARGIN = 0;

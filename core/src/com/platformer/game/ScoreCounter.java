@@ -39,7 +39,7 @@ public class ScoreCounter implements Drawable, Creatable, Updatable {
         this.enemyPool.forEach(new Consumer<Enemy>() {
             @Override
             public void accept(Enemy enemy) {
-                if (enemy.shouldRemove()) {
+                if (enemy.shouldRemove() && enemy.shouldRewardScore()) {
                     addToScore(enemy.getRewardedScore());
                 }
             }

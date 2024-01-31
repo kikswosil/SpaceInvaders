@@ -2,18 +2,19 @@ package com.platformer.game;
 
 import com.badlogic.gdx.graphics.Texture;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class EnemyBuilder {
     private Texture texture;
-    private int x;
-    private int y;
-    private int width;
-    private int height;
-    private int score;
-    private List<Projectile> collideablePool;
-    private List<Enemy> enemyPool;
-    private float  speedScalar;
+    private int x = 0;
+    private int y = 0;
+    private int width = 0;
+    private int height = 0;
+    private int score = 0;
+    private List<Projectile> collideablePool = new ArrayList<>();
+    private List<Enemy> enemyPool = new ArrayList<>();
+    private float  speedScalar = 0.f;
 
     public EnemyBuilder setTexture(Texture texture) {
         this.texture = texture;
