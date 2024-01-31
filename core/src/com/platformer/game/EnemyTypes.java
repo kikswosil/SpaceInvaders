@@ -15,8 +15,7 @@ public enum EnemyTypes {
     ANT,
     MOTH,
     CRICKET,
-    EARWIG,
-    TERMITE;
+    EARWIG;
 
     private static final Random random = new Random();
     private static final EnemyTypes[] enemyTypes = EnemyTypes.values();
