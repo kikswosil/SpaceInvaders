@@ -19,6 +19,10 @@ public class Projectile extends Sprite implements Drawable, Updatable, Collideab
         this.setSize(width, height);
     }
 
+    public void setShouldRemove(boolean shouldRemove) {
+        this.shouldRemove = shouldRemove;
+    }
+
     @Override
     public boolean shouldRemove() {
         return this.shouldRemove;

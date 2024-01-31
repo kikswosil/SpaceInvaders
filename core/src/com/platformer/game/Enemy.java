@@ -9,12 +9,12 @@ import com.badlogic.gdx.math.Vector2;
 
 import java.util.List;
 
-import static com.platformer.game.Const.Enemy.ENEMY_VELOCITY_SCALAR;
 
 public class Enemy extends Sprite implements Collideable, Drawable, Updatable {
 
     private final List<Projectile> projectiles;
     private final Vector2 velocity = new Vector2(0, -3.f);
+    private final float speedScalar;
     private boolean shouldRemove;
 
     private int rewardedScore = 0;
@@ -27,7 +27,8 @@ public class Enemy extends Sprite implements Collideable, Drawable, Updatable {
             int height,
             List<Projectile> collideablePool,
             List<Enemy> enemyPool,
-            int rewardedScore
+            int rewardedScore,
+            float speedScalar
     ) {
         this.setX(x);
         this.setY(y);
@@ -38,13 +39,17 @@ public class Enemy extends Sprite implements Collideable, Drawable, Updatable {
 
         this.projectiles = collideablePool;
         this.rewardedScore = rewardedScore;
+        this.speedScalar = speedScalar;
 
         enemyPool.add(this);
     }
 
     private void checkCollisions() {
         this.projectiles.forEach(projectile -> {
-            if(CollisionUtil.isColliding(this, projectile)) Enemy.this.shouldRemove = true;
+            if(CollisionUtil.isColliding(this, projectile)) {
+                Enemy.this.shouldRemove = true;
+                projectile.setShouldRemove(true);
+            }
         });
     }
 
@@ -72,7 +77,7 @@ public class Enemy extends Sprite implements Collideable, Drawable, Updatable {
     @Override
     public void update() {
 
-        this.velocity.nor().scl(ENEMY_VELOCITY_SCALAR);
+        this.velocity.nor().scl(this.speedScalar);
 
         this.setPosition(
                 this.getX() + this.velocity.x * Gdx.graphics.getDeltaTime(),

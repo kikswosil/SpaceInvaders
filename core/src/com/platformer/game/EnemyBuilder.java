@@ -13,7 +13,7 @@ public class EnemyBuilder {
     private int score;
     private List<Projectile> collideablePool;
     private List<Enemy> enemyPool;
-    private int rewardedScore;
+    private float  speedScalar;
 
     public EnemyBuilder setTexture(Texture texture) {
         this.texture = texture;
@@ -47,6 +47,12 @@ public class EnemyBuilder {
         return this;
     }
 
+    public EnemyBuilder setSpeedScalar(float speed) {
+        this.speedScalar = speed;
+        return this;
+    }
+
+
     public EnemyBuilder setX(int x) {
         this.x = x;
         return this;
@@ -76,7 +82,8 @@ public class EnemyBuilder {
                 this.height,
                 this.collideablePool,
                 this.enemyPool,
-                this.score
+                this.score,
+                this.speedScalar
         );
     }
 

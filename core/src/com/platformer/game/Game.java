@@ -142,6 +142,7 @@ public class Game extends ApplicationAdapter {
 			}
 		});
 
+        //draw the score counter.
 		this.scoreCounter.draw(this.batch);
 
 		this.batch.end();

@@ -57,6 +57,10 @@ public class EnemyGenerator implements Creatable, Updatable {
         );
     }
 
+    private float getSpeedInRange(float low, float high) {
+        return this.random.nextFloat(low, high);
+    }
+
     @Override
     public void update() {
         for (int i = 0; i <= generatedEnemies; i++) {
@@ -69,6 +73,7 @@ public class EnemyGenerator implements Creatable, Updatable {
                     .setRewardedScore(10 * (textureIndex == 0 ? 1 : textureIndex))
                     .setCollideablePool(this.projectilePool)
                     .setEnemyPool(this.enemyPool)
+                    .setSpeedScalar(this.getSpeedInRange(ENEMY_VELOCITY_SCALAR_LOW, ENEMY_VELOCITY_SCALAR_HIGH))
             .createEnemy();
         }
     }
