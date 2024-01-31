@@ -1,5 +1,7 @@
 package com.platformer.game;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
@@ -12,6 +14,7 @@ public class ProjectileGenerator implements Creatable, Updatable {
     private Texture texture;
     private final Player player;
     private final List<Projectile> projectilePool;
+//    private Sound fireSound;
 
     public ProjectileGenerator(Player player, List<Projectile> projectilePool) {
         this.player = player;
@@ -42,6 +45,8 @@ public class ProjectileGenerator implements Creatable, Updatable {
         );
         this.texture = new Texture(image);
         image.dispose();
+
+//        this.fireSound = Gdx.audio.newSound(Gdx.files.internal("Hit damage 1.mp3"));
     }
 
     @Override

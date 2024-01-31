@@ -1,6 +1,7 @@
 package com.platformer.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -18,6 +19,7 @@ public class Enemy extends Sprite implements Collideable, Drawable, Updatable {
     private final List<Projectile> projectiles;
     private final Vector2 velocity = new Vector2(0, -3.f);
     private final float speedScalar;
+    private final Sound deathSound = Gdx.audio.newSound(Gdx.files.internal("Boss hit 1.mp3"));
     private boolean shouldRemove;
 
     private int rewardedScore = 0;
@@ -55,6 +57,7 @@ public class Enemy extends Sprite implements Collideable, Drawable, Updatable {
             if(CollisionUtil.isColliding(this, projectile)) {
                 Enemy.this.shouldRemove = true;
                 Enemy.this.shouldRewardScore = true;
+                Enemy.this.deathSound.play();
                 projectile.setShouldRemove(true);
             }
         });

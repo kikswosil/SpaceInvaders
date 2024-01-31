@@ -27,7 +27,6 @@ public class EnemyManager {
             );
         }
     }
-
     public Vector2 determinePosition() {
         return new Vector2(new Random()
                 .nextInt(

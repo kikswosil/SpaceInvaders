@@ -81,7 +81,8 @@ public class Game extends ApplicationAdapter {
 		timer.scheduleTask(new Timer.Task() {
 			@Override
 			public void run() {
-				projectileGenerator.update();
+				if(!player.isDead())
+					projectileGenerator.update();
 			}
 		},
 				PROJECTILE_GENERATION_DELAY,
