@@ -24,18 +24,18 @@ public class Game extends ApplicationAdapter {
 	private SpriteBatch batch;
     private BitmapFont font;
 
-    private final List<Projectile> projectilePool = new ArrayList<>();
+    private List<Projectile> projectilePool = new ArrayList<>();
 
-	private final List<Enemy> enemyPool = new ArrayList<>();
+	private List<Enemy> enemyPool = new ArrayList<>();
 
-	private final Player player = new Player(
+	private Player player = new Player(
 			"player.png",
 			enemyPool,
 			PLAYER_WIDTH,
 			PLAYER_HEIGHT
 	);
 
-    private final ScoreCounter scoreCounter = new ScoreCounter(this.enemyPool);
+    private ScoreCounter scoreCounter = new ScoreCounter(this.enemyPool);
 
     private final ProjectileGenerator projectileGenerator = new ProjectileGenerator(
 			this.player,
@@ -65,6 +65,14 @@ public class Game extends ApplicationAdapter {
 	private List<Music> playlist = new ArrayList<>();
 	private int currentSongIndex = 0;
 
+	public void restart() {
+		this.projectilePool.clear();
+		this.enemyPool.clear();
+		scoreCounter.reset();
+		enemyGenerator.reset();
+		player.reset();
+	}
+
 	@Override
 	public void create () {
         // create game utils.
@@ -83,9 +91,6 @@ public class Game extends ApplicationAdapter {
 		// create music
 		this.playlist.add(Gdx.audio.newMusic(Gdx.files.internal("music/16_bit_space.ogg")));
 		this.playlist.add(Gdx.audio.newMusic(Gdx.files.internal("music/retro_metal.ogg")));
-
-		// start playing songs.
-//		this.playlist.get(currentSongIndex).play();
 
         // handle time events.
         // (ex. enemy generation, difficulty progression)
@@ -129,19 +134,12 @@ public class Game extends ApplicationAdapter {
 				}
 				playlist.get(currentSongIndex).play();
 			}
-		}, 10f, 1f);
+		}, 10f, 10f);
 	}
 
 	@Override
 	public void render () {
 		ScreenUtils.clear(0, 0, 0, 1);
-
-        // draw player death screen, if player is dead.
-		if (this.player.isDead()) {
-			new DeathView(this.font, this.scoreCounter.getScore()).draw(this.batch);
-			return;
-		}
-
         // update player
 		this.player.update();
 
@@ -150,7 +148,12 @@ public class Game extends ApplicationAdapter {
 		this.enemyPool.forEach(Enemy::update);
 
 		this.batch.begin();
-
+		if (this.player.isDead()) {
+			new DeathView(this, this.font, this.scoreCounter.getScore()).draw(this.batch);
+			this.enemyPool.clear();
+			this.batch.end();
+			return;
+		}
 		// render player
 		this.player.draw(this.batch);
 

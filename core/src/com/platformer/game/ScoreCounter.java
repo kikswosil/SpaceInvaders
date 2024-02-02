@@ -15,6 +15,10 @@ public class ScoreCounter implements Drawable, Creatable, Updatable {
     public ScoreCounter(List<Enemy> enemyPool) {
         this.enemyPool = enemyPool;
     }
+
+    public void reset() {
+        this.score = 0;
+    }
     public int getScore() {
         return this.score;
     }
@@ -25,6 +29,7 @@ public class ScoreCounter implements Drawable, Creatable, Updatable {
 
     @Override
     public void draw(SpriteBatch batch) {
+        if(this.font == null) return;
         this.font.draw(batch, String.format("score: %d", score), 10, Gdx.graphics.getHeight() - 10);
     }
 

@@ -31,6 +31,10 @@ public class EnemyGenerator implements Creatable, Updatable {
         this.paths = paths;
     }
 
+    public void reset() {
+        this.generatedEnemies = 0;
+    }
+
     @Override
     public void create() {
         // create textures from provided paths.

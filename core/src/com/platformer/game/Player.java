@@ -102,4 +102,9 @@ public class Player extends Sprite implements Creatable, Updatable, Drawable, Co
                 this.getHeight()
         );
     }
+
+    public void reset() {
+        this.setDead(false);
+        this.setPosition(((float) Gdx.graphics.getWidth() / 2) - (this.getWidth() / 2), 0);
+    }
 }
