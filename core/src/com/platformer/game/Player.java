@@ -1,6 +1,7 @@
 package com.platformer.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -16,6 +17,8 @@ public class Player extends Sprite implements Creatable, Updatable, Drawable, Co
     private final String texturePath;
     private final Vector2 velocity = new Vector2(0, 0);
     private final DesktopInputController controller = new PlayerController(this);
+
+    private Sound deathSound;
 
     private final List<Enemy> enemyList;
     private boolean isDead = false;
@@ -48,6 +51,8 @@ public class Player extends Sprite implements Creatable, Updatable, Drawable, Co
         this.setRegion(0, 0, texture.getWidth(), texture.getHeight());
 
         this.setPosition(((float) Gdx.graphics.getWidth() / 2) - (this.getWidth() / 2), 30);
+
+        this.deathSound = Gdx.audio.newSound(Gdx.files.internal("sounds/death1.mp3"));
     }
 
     @Override
@@ -82,6 +87,7 @@ public class Player extends Sprite implements Creatable, Updatable, Drawable, Co
 
         this.enemyList.forEach(enemy -> {
             if(CollisionUtil.isColliding(this, enemy)) {
+                deathSound.play();
                 setDead(true);
             }
         });

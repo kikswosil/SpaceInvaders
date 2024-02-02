@@ -19,7 +19,7 @@ public class Enemy extends Sprite implements Collideable, Drawable, Updatable {
     private final List<Projectile> projectiles;
     private final Vector2 velocity = new Vector2(0, -3.f);
     private final float speedScalar;
-    private final Sound deathSound = Gdx.audio.newSound(Gdx.files.internal("Boss hit 1.mp3"));
+    private final Sound deathSound = Gdx.audio.newSound(Gdx.files.internal("sounds/Boss hit 1.mp3"));
     private boolean shouldRemove;
 
     private int rewardedScore = 0;

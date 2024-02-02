@@ -13,7 +13,7 @@ import static com.platformer.game.Const.Projectile.PROJECTILE_LIFETIME_LENGTH;
 public class Projectile extends Sprite implements Drawable, Updatable, Collideable {
     private boolean shouldRemove = false;
     private final long createdTimestamp = TimeUtils.millis();
-    private final Sound fireSound = Gdx.audio.newSound(Gdx.files.internal("Hit damage 1.mp3"));
+    private final Sound fireSound = Gdx.audio.newSound(Gdx.files.internal("sounds/Hit damage 1.mp3"));
     public Projectile(Texture texture, int x, int y, int width, int height) {
         this.setTexture(texture);
 
