@@ -1,6 +1,8 @@
 package com.platformer.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -9,6 +11,7 @@ import com.badlogic.gdx.utils.Timer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 import static com.platformer.game.Const.Enemy.ENEMY_GENERATION_DELAY;
 import static com.platformer.game.Const.Enemy.ENEMY_GENERATION_INTERVAL;
@@ -59,6 +62,9 @@ public class Game extends ApplicationAdapter {
 			}
 	);
 
+	private List<Music> playlist = new ArrayList<>();
+	private int currentSongIndex = 0;
+
 	@Override
 	public void create () {
         // create game utils.
@@ -73,6 +79,13 @@ public class Game extends ApplicationAdapter {
 		this.player.create();
         this.projectileGenerator.create();
 		this.enemyGenerator.create();
+
+		// create music
+		this.playlist.add(Gdx.audio.newMusic(Gdx.files.internal("music/16_bit_space.ogg")));
+		this.playlist.add(Gdx.audio.newMusic(Gdx.files.internal("music/retro_metal.ogg")));
+
+		// start playing songs.
+//		this.playlist.get(currentSongIndex).play();
 
         // handle time events.
         // (ex. enemy generation, difficulty progression)
@@ -103,6 +116,20 @@ public class Game extends ApplicationAdapter {
 				enemyGenerator.doDifficultyProgression();
 			}
 		}, 30f, 30f);
+
+		timer.scheduleTask(new Timer.Task() {
+			@Override
+			public void run() {
+				if(playlist.get(currentSongIndex).isPlaying()) return;
+				if(currentSongIndex < playlist.size() - 1) {
+					currentSongIndex++;
+				}
+				else {
+					currentSongIndex = 0;
+				}
+				playlist.get(currentSongIndex).play();
+			}
+		}, 10f, 1f);
 	}
 
 	@Override
