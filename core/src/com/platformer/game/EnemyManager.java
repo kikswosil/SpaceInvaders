@@ -20,7 +20,7 @@ public class EnemyManager {
                             .setTexture(textures.get(i))
                             .setPosition((int) this.determinePosition().x, (int) this.determinePosition().y)
                             .setSize(ENEMY_WIDTH, textures.get(i).getHeight() * 2)
-                            .setRewardedScore(10 * (i == 0 ? 1 : i))
+                            .setRewardedScore((int) (10 * (i == 0 ? 0.5f : i)))
                             .setCollideablePool(projectilePool)
                             .setEnemyPool(enemyPool)
                             .setSpeedScalar(250.f + 20 * (i == 0 ? 1 : i))
