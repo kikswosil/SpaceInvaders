@@ -66,6 +66,11 @@ public class Game extends ApplicationAdapter {
 	private int currentSongIndex = 0;
 	private boolean isStarted = false;
 
+	public void start() {
+		this.isStarted = true;
+		this.restart();
+	}
+
 	public void restart() {
 		this.projectilePool.clear();
 		this.enemyPool.clear();
