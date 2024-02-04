@@ -127,7 +127,7 @@ public class Game extends ApplicationAdapter {
 		timer.scheduleTask(new Timer.Task() {
 			@Override
 			public void run() {
-				if(!player.isDead())
+				if(!player.isDead() && isStarted)
 					projectileGenerator.update();
 			}
 		},
@@ -162,6 +162,14 @@ public class Game extends ApplicationAdapter {
 		this.enemyPool.forEach(Enemy::update);
 
 		this.batch.begin();
+		// handle game start
+		if(!this.isStarted)	{
+			new StartView(this, this.font).draw(this.batch);
+			this.enemyPool.clear();
+			this.batch.end();
+			return;
+		}
+		// handle player death
 		if (this.player.isDead()) {
 			new DeathView(this, this.font, this.scoreCounter.getScore()).draw(this.batch);
 			this.enemyPool.clear();
