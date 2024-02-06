@@ -11,7 +11,6 @@ import com.badlogic.gdx.utils.Timer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
-import java.util.function.Predicate;
 
 import static com.platformer.game.Const.Enemy.ENEMY_GENERATION_DELAY;
 import static com.platformer.game.Const.Enemy.ENEMY_GENERATION_INTERVAL;
@@ -19,23 +18,25 @@ import static com.platformer.game.Const.Player.PLAYER_HEIGHT;
 import static com.platformer.game.Const.Player.PLAYER_WIDTH;
 import static com.platformer.game.Const.Projectile.PROJECTILE_GENERATION_DELAY;
 import static com.platformer.game.Const.Projectile.PROJECTILE_GENERATION_INTERVAL;
+import static com.platformer.game.Const.Difficulty.DIFFICULTY_PROGRESSION_DELAY;
+import static com.platformer.game.Const.Difficulty.DIFFICULTY_PROGRESSION_INTERVAL;
 
 public class Game extends ApplicationAdapter {
 	private SpriteBatch batch;
     private BitmapFont font;
 
-    private List<Projectile> projectilePool = new ArrayList<>();
+    private final List<Projectile> projectilePool = new ArrayList<>();
 
-	private List<Enemy> enemyPool = new ArrayList<>();
+	private final List<Enemy> enemyPool = new ArrayList<>();
 
-	private Player player = new Player(
+	private final Player player = new Player(
 			"player.png",
 			enemyPool,
 			PLAYER_WIDTH,
 			PLAYER_HEIGHT
 	);
 
-    private ScoreCounter scoreCounter = new ScoreCounter(this.enemyPool);
+    private final ScoreCounter scoreCounter = new ScoreCounter(this.enemyPool);
 
     private final ProjectileGenerator projectileGenerator = new ProjectileGenerator(
 			this.player,
@@ -62,9 +63,34 @@ public class Game extends ApplicationAdapter {
 			}
 	);
 
-	private List<Music> playlist = new ArrayList<>();
+	private final List<Music> playlist = new ArrayList<>();
 	private int currentSongIndex = 0;
 	private boolean isStarted = false;
+	private GameState currentState;
+
+	public Player getPlayer() {
+		return this.player;
+	}
+
+	public BitmapFont getFont() {
+		return this.font;
+	}
+
+	public List<Enemy> getEnemyPool() {
+		return this.enemyPool;
+	}
+
+	public List<Projectile> getProjectilePool() {
+		return this.projectilePool;
+	}
+
+	public SpriteBatch getBatch() {
+		return this.batch;
+	}
+
+	public ScoreCounter getScoreCounter() {
+		return this.scoreCounter;
+	}
 
 	public void start() {
 		this.isStarted = true;
@@ -138,7 +164,8 @@ public class Game extends ApplicationAdapter {
 		timer.scheduleTask(new Timer.Task() {
 			@Override
 			public void run() {
-				enemyGenerator.update();
+				if(!player.isDead() && isStarted)
+					enemyGenerator.update();
 			}
 		}, ENEMY_GENERATION_DELAY, ENEMY_GENERATION_INTERVAL);
 
@@ -146,70 +173,35 @@ public class Game extends ApplicationAdapter {
 
 			@Override
 			public void run() {
-				enemyGenerator.doDifficultyProgression();
+				if(!player.isDead() && isStarted)
+					enemyGenerator.doDifficultyProgression();
 			}
-		}, 30f, 30f);
+		}, DIFFICULTY_PROGRESSION_DELAY, DIFFICULTY_PROGRESSION_INTERVAL);
 	}
 
 	@Override
 	public void render () {
 		ScreenUtils.clear(0, 0, 0, 1);
-        // update player
-		this.player.update();
 
-        // update enemies and projectiles.
-		this.projectilePool.forEach(Projectile::update);
-		this.enemyPool.forEach(Enemy::update);
-
-		this.batch.begin();
-		// handle game start
-		if(!this.isStarted)	{
-			new StartView(this, this.font).draw(this.batch);
-			this.enemyPool.clear();
-			this.batch.end();
-			return;
+		if(!this.isStarted) {
+			this.currentState = new GameStartState(this);
 		}
-		// handle player death
-		if (this.player.isDead()) {
-			new DeathView(this, this.font, this.scoreCounter.getScore()).draw(this.batch);
-			this.enemyPool.clear();
-			this.batch.end();
-			return;
+
+		if(this.player.isDead()) {
+			this.currentState = new GameOverState(this);
 		}
-		// render player
-		this.player.draw(this.batch);
 
-		// render projectiles.
-		this.projectilePool.forEach(new Consumer<Projectile>() {
-			@Override
-			public void accept(Projectile projectile) {
-				projectile.draw(batch);
-			}
-		});
+		if(!this.player.isDead() && this.isStarted) {
+			this.currentState = new GameRunningState(this);
+		}
 
-        // render enemies.
-		this.enemyPool.forEach(new Consumer<Enemy>() {
-			@Override
-			public void accept(Enemy enemy) {
-				enemy.draw(batch);
-			}
-		});
+		this.currentState.render();
 
-        //draw the score counter.
-		this.scoreCounter.draw(this.batch);
-
-		this.batch.end();
-
-        // count score.
-		this.scoreCounter.update();
-
-        // remove items from update lists.
-		this.projectilePool.removeIf(Projectile::shouldRemove);
-		this.enemyPool.removeIf(Enemy::shouldRemove);
 	}
 	
 	@Override
 	public void dispose () {
 		this.batch.dispose();
 	}
+
 }

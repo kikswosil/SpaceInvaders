@@ -22,6 +22,11 @@ public class Const {
         public static final int ENEMY_GENERATION_FIELD_MARGIN = 0;
     }
 
+    public static class Difficulty {
+        public static final float DIFFICULTY_PROGRESSION_DELAY = 0.f;
+        public static final float DIFFICULTY_PROGRESSION_INTERVAL = 30.f;
+    }
+
     public static class Projectile {
 
         public static final float PROJECTILE_GENERATION_INTERVAL = 0.3f;
