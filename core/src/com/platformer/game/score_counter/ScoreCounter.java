@@ -1,8 +1,12 @@
-package com.platformer.game;
+package com.platformer.game.score_counter;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.platformer.game.utils.behavioural.Creatable;
+import com.platformer.game.utils.behavioural.Drawable;
+import com.platformer.game.utils.behavioural.Updatable;
+import com.platformer.game.enemy.Enemy;
 
 import java.util.List;
 import java.util.function.Consumer;

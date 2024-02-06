@@ -1,4 +1,4 @@
-package com.platformer.game;
+package com.platformer.game.enemy;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
@@ -8,6 +8,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.TimeUtils;
+import com.platformer.game.utils.collision.Collideable;
+import com.platformer.game.utils.collision.CollisionUtil;
+import com.platformer.game.utils.behavioural.Drawable;
+import com.platformer.game.utils.behavioural.Updatable;
+import com.platformer.game.projectile.Projectile;
 
 import java.util.List;
 

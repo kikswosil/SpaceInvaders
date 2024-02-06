@@ -1,10 +1,11 @@
-package com.platformer.game;
+package com.platformer.game.projectile;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
+import com.platformer.game.utils.behavioural.Creatable;
+import com.platformer.game.utils.behavioural.Updatable;
+import com.platformer.game.player.Player;
 
 import java.util.List;
 

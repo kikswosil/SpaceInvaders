@@ -1,9 +1,9 @@
-package com.platformer.game;
+package com.platformer.game.enemy;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
-import com.platformer.game.EnemyTypes;
+import com.platformer.game.projectile.Projectile;
 
 import java.util.*;
 import java.util.stream.Collectors;

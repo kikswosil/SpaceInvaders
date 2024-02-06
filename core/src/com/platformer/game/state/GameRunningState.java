@@ -1,6 +1,11 @@
-package com.platformer.game;
+package com.platformer.game.state;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.platformer.game.Game;
+import com.platformer.game.score_counter.ScoreCounter;
+import com.platformer.game.enemy.Enemy;
+import com.platformer.game.player.Player;
+import com.platformer.game.projectile.Projectile;
 
 import java.util.List;
 import java.util.function.Consumer;

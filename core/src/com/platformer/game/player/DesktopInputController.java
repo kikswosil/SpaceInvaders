@@ -1,4 +1,4 @@
-package com.platformer.game;
+package com.platformer.game.player;
 
 public interface DesktopInputController {
     public default void process() {

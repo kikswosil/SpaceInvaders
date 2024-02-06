@@ -1,6 +1,7 @@
-package com.platformer.game;
+package com.platformer.game.utils;
 
 import com.badlogic.gdx.utils.Timer;
+import com.platformer.game.Game;
 
 import static com.platformer.game.Const.Difficulty.DIFFICULTY_PROGRESSION_DELAY;
 import static com.platformer.game.Const.Difficulty.DIFFICULTY_PROGRESSION_INTERVAL;
@@ -9,7 +10,7 @@ import static com.platformer.game.Const.Enemy.ENEMY_GENERATION_INTERVAL;
 import static com.platformer.game.Const.Projectile.PROJECTILE_GENERATION_DELAY;
 import static com.platformer.game.Const.Projectile.PROJECTILE_GENERATION_INTERVAL;
 
-public class TaskSchedule {
+public class TaskUtil {
     public static void getScheduledTasks(Game game) {
         Timer timer = new Timer();
         timer.scheduleTask(new Timer.Task() {

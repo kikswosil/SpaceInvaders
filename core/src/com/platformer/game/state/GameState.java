@@ -1,4 +1,4 @@
-package com.platformer.game;
+package com.platformer.game.state;
 
 public interface GameState {
     public void render();

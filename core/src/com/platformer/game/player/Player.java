@@ -1,4 +1,4 @@
-package com.platformer.game;
+package com.platformer.game.player;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
@@ -7,12 +7,18 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.platformer.game.utils.behavioural.Creatable;
+import com.platformer.game.utils.behavioural.Drawable;
+import com.platformer.game.utils.behavioural.Updatable;
+import com.platformer.game.utils.collision.Collideable;
+import com.platformer.game.utils.collision.CollisionUtil;
+import com.platformer.game.enemy.Enemy;
 
 import java.util.List;
 
 import static com.platformer.game.Const.Player.PLAYER_VELOCITY_SCALAR;
 
-public class Player extends Sprite implements Creatable, Updatable, Drawable, Collideable{
+public class Player extends Sprite implements Creatable, Updatable, Drawable, Collideable {
 
     private final String texturePath;
     private final Vector2 velocity = new Vector2(0, 0);

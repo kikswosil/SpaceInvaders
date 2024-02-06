@@ -1,10 +1,10 @@
-package com.platformer.game;
+package com.platformer.game.player;
 
 import com.badlogic.gdx.Input.Keys;
 
 import static com.badlogic.gdx.Gdx.input;
 
-public class PlayerController implements DesktopInputController{
+public class PlayerController implements DesktopInputController {
     private final Player player;
 
     public PlayerController(Player player) {

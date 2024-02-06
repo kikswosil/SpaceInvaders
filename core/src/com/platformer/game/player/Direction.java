@@ -1,6 +1,7 @@
-package com.platformer.game;
+package com.platformer.game.player;
 
 import com.badlogic.gdx.Gdx;
+import com.platformer.game.player.Player;
 
 import static com.platformer.game.Const.Player.PLAYER_HORIZONTAL_VELOCITY;
 import static com.platformer.game.Const.Player.PLAYER_VERTICAL_VELOCITY;

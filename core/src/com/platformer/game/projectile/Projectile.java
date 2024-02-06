@@ -1,4 +1,4 @@
-package com.platformer.game;
+package com.platformer.game.projectile;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
@@ -7,6 +7,9 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.TimeUtils;
+import com.platformer.game.utils.collision.Collideable;
+import com.platformer.game.utils.behavioural.Drawable;
+import com.platformer.game.utils.behavioural.Updatable;
 
 import static com.platformer.game.Const.Projectile.PROJECTILE_LIFETIME_LENGTH;
 

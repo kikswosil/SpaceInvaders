@@ -4,6 +4,18 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.platformer.game.music.Playlist;
+import com.platformer.game.score_counter.ScoreCounter;
+import com.platformer.game.utils.TaskUtil;
+import com.platformer.game.enemy.Enemy;
+import com.platformer.game.enemy.EnemyGenerator;
+import com.platformer.game.player.Player;
+import com.platformer.game.projectile.Projectile;
+import com.platformer.game.projectile.ProjectileGenerator;
+import com.platformer.game.state.GameOverState;
+import com.platformer.game.state.GameRunningState;
+import com.platformer.game.state.GameStartState;
+import com.platformer.game.state.GameState;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -123,8 +135,7 @@ public class Game extends ApplicationAdapter {
 		new Playlist().create();
 
         // handle time events.
-        // (ex. enemy generation, difficulty progression)
-		TaskSchedule.getScheduledTasks(this);
+		TaskUtil.getScheduledTasks(this);
 	}
 
 	@Override

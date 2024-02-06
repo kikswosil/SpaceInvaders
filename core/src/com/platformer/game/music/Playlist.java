@@ -1,7 +1,8 @@
-package com.platformer.game;
+package com.platformer.game.music;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
+import com.platformer.game.utils.behavioural.Creatable;
 
 import java.util.ArrayList;
 import java.util.List;

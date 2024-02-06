@@ -1,4 +1,4 @@
-package com.platformer.game;
+package com.platformer.game.utils.collision;
 
 import com.badlogic.gdx.math.Rectangle;
 

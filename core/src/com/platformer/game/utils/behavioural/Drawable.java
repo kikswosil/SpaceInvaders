@@ -1,4 +1,4 @@
-package com.platformer.game;
+package com.platformer.game.utils.behavioural;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 

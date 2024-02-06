@@ -1,4 +1,4 @@
-package com.platformer.game;
+package com.platformer.game.enemy;
 
 import java.util.Random;
 
