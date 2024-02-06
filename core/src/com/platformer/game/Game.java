@@ -62,9 +62,6 @@ public class Game extends ApplicationAdapter {
 					"termite.png"
 			}
 	);
-
-	private final List<Music> playlist = new ArrayList<>();
-	private int currentSongIndex = 0;
 	private boolean isStarted = false;
 	private GameState currentState;
 
@@ -90,6 +87,18 @@ public class Game extends ApplicationAdapter {
 
 	public ScoreCounter getScoreCounter() {
 		return this.scoreCounter;
+	}
+
+	public boolean isStarted() {
+		return this.isStarted;
+	}
+
+	public ProjectileGenerator getProjectileGenerator() {
+		return this.projectileGenerator;
+	}
+
+	public EnemyGenerator getEnemyGenerator() {
+		return this.enemyGenerator;
 	}
 
 	public void start() {
@@ -121,62 +130,11 @@ public class Game extends ApplicationAdapter {
 		this.enemyGenerator.create();
 
 		// create music
-		this.playlist.add(Gdx.audio.newMusic(Gdx.files.internal("music/16_bit_space.ogg")));
-		this.playlist.add(Gdx.audio.newMusic(Gdx.files.internal("music/retro_metal.ogg")));
-
-		this.playlist.forEach(new Consumer<Music>() {
-			@Override
-			public void accept(Music music) {
-				music.setOnCompletionListener(new Music.OnCompletionListener() {
-					@Override
-					public void onCompletion(Music music) {
-						if(currentSongIndex < playlist.size() - 1) {
-							currentSongIndex++;
-						}
-						else {
-							currentSongIndex = 0;
-						}
-						playlist.get(currentSongIndex).setVolume(0.5f);
-						playlist.get(currentSongIndex).play();
-					}
-				});
-			}
-		});
-
-		this.playlist.get(currentSongIndex).setVolume(0.5f);
-		this.playlist.get(currentSongIndex).play();
+		new Playlist().create();
 
         // handle time events.
         // (ex. enemy generation, difficulty progression)
-
-		Timer timer = new Timer();
-		timer.scheduleTask(new Timer.Task() {
-			@Override
-			public void run() {
-				if(!player.isDead() && isStarted)
-					projectileGenerator.update();
-			}
-		},
-				PROJECTILE_GENERATION_DELAY,
-				PROJECTILE_GENERATION_INTERVAL
-		);
-
-		timer.scheduleTask(new Timer.Task() {
-			@Override
-			public void run() {
-				if(!player.isDead() && isStarted)
-					enemyGenerator.update();
-			}
-		}, ENEMY_GENERATION_DELAY, ENEMY_GENERATION_INTERVAL);
-
-		timer.scheduleTask(new Timer.Task() {
-
-			@Override
-			public void run() {
-				if(!player.isDead() && isStarted)
-					enemyGenerator.doDifficultyProgression();
-			}
-		}, DIFFICULTY_PROGRESSION_DELAY, DIFFICULTY_PROGRESSION_INTERVAL);
+		TaskSchedule.getScheduledTasks(this);
 	}
 
 	@Override
