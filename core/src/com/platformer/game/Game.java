@@ -27,6 +27,8 @@ public class Game extends ApplicationAdapter {
 	private boolean isStarted = false;
 	private GameState currentState;
 
+
+
     private final List<Projectile> projectilePool = new ArrayList<>();
 	private final List<Enemy> enemyPool = new ArrayList<>();
 	private final Player player = new Player(this);
@@ -34,7 +36,72 @@ public class Game extends ApplicationAdapter {
     private final ProjectileGenerator projectileGenerator = new ProjectileGenerator(this);
 	private final EnemyGenerator enemyGenerator = new EnemyGenerator(this);
 
-	public Player getPlayer() {
+
+
+    public void start() {
+        this.isStarted = true;
+        this.restart();
+    }
+
+    public void restart() {
+        this.projectilePool.clear();
+        this.enemyPool.clear();
+        scoreCounter.reset();
+        enemyGenerator.reset();
+        player.reset();
+    }
+
+    @Override
+    public void create () {
+        // create game utils.
+        this.batch = new SpriteBatch();
+
+        this.timer = new Timer();
+
+        this.font = new BitmapFont();
+        this.font.getData().setScale(3f);
+
+        this.scoreCounter.create();
+
+        // create game objects.
+        this.player.create();
+        this.projectileGenerator.create();
+        this.enemyGenerator.create();
+
+        // create music
+        new Playlist().create();
+    }
+
+    @Override
+    public void render () {
+        ScreenUtils.clear(0, 0, 0, 1);
+
+        if(!this.isStarted) {
+            this.currentState = new GameStartState(this);
+        }
+
+        if(this.player.isDead()) {
+            this.currentState = new GameOverState(this);
+        }
+
+        if(!this.player.isDead() && this.isStarted) {
+            this.currentState = new GameRunningState(this);
+        }
+
+        this.currentState.render();
+
+    }
+
+
+
+    @Override
+    public void dispose () {
+        this.batch.dispose();
+    }
+
+
+
+    public Player getPlayer() {
 		return this.player;
 	}
 
@@ -72,64 +139,4 @@ public class Game extends ApplicationAdapter {
 	public Timer getTimer() {
 		return this.timer;
 	}
-	public void start() {
-		this.isStarted = true;
-		this.restart();
-	}
-
-	public void restart() {
-		this.projectilePool.clear();
-		this.enemyPool.clear();
-		scoreCounter.reset();
-		enemyGenerator.reset();
-		player.reset();
-	}
-
-	@Override
-	public void create () {
-        // create game utils.
-		this.batch = new SpriteBatch();
-
-		this.timer = new Timer();
-
-        this.font = new BitmapFont();
-        this.font.getData().setScale(3f);
-
-		this.scoreCounter.create();
-
-        // create game objects.
-		this.player.create();
-        this.projectileGenerator.create();
-		this.enemyGenerator.create();
-
-		// create music
-		new Playlist().create();
-	}
-
-	@Override
-	public void render () {
-		ScreenUtils.clear(0, 0, 0, 1);
-
-		if(!this.isStarted) {
-			this.currentState = new GameStartState(this);
-		}
-
-		if(this.player.isDead()) {
-			this.currentState = new GameOverState(this);
-		}
-
-		if(!this.player.isDead() && this.isStarted) {
-			this.currentState = new GameRunningState(this);
-		}
-
-		this.currentState.render();
-
-	}
-	
-	@Override
-	public void dispose () {
-		this.batch.dispose();
-	}
-
-
 }
