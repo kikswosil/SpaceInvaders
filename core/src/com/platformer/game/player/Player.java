@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.platformer.game.Game;
 import com.platformer.game.utils.behavioural.Creatable;
 import com.platformer.game.utils.behavioural.Drawable;
 import com.platformer.game.utils.behavioural.Updatable;
@@ -16,7 +17,7 @@ import com.platformer.game.enemy.Enemy;
 
 import java.util.List;
 
-import static com.platformer.game.Const.Player.PLAYER_VELOCITY_SCALAR;
+import static com.platformer.game.Const.Player.*;
 
 public class Player extends Sprite implements Creatable, Updatable, Drawable, Collideable {
 
@@ -29,18 +30,11 @@ public class Player extends Sprite implements Creatable, Updatable, Drawable, Co
     private final List<Enemy> enemyList;
     private boolean isDead = false;
 
-    public Player(String texturePath, List<Enemy> enemyList, Rectangle initialHitBox) {
-        this.texturePath = texturePath;
-        this.enemyList = enemyList;
+    public Player(Game game) {
+        this.texturePath = "player.png";
+        this.enemyList = game.getEnemyPool();
 
-        this.setSize(initialHitBox.width, initialHitBox.height);
-    }
-
-    public Player(String texturePath, List<Enemy> enemyList, int width, int height) {
-        this.texturePath = texturePath;
-        this.enemyList = enemyList;
-
-        this.setSize(width, height);
+        this.setSize(PLAYER_WIDTH, PLAYER_HEIGHT);
     }
 
     public void setVelocityX(float x) {

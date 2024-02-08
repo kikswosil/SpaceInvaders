@@ -3,6 +3,8 @@ package com.platformer.game.projectile;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.utils.Timer;
+import com.platformer.game.Game;
 import com.platformer.game.utils.behavioural.Creatable;
 import com.platformer.game.utils.behavioural.Updatable;
 import com.platformer.game.player.Player;
@@ -15,11 +17,14 @@ public class ProjectileGenerator implements Creatable, Updatable {
     private Texture texture;
     private final Player player;
     private final List<Projectile> projectilePool;
-//    private Sound fireSound;
 
-    public ProjectileGenerator(Player player, List<Projectile> projectilePool) {
-        this.player = player;
-        this.projectilePool = projectilePool;
+    private Game game;
+
+    public ProjectileGenerator(Game game) {
+        this.player = game.getPlayer();
+        this.projectilePool = game.getProjectilePool();
+
+        this.game = game;
     }
 
     private int calculateProjectileX() {
@@ -47,7 +52,16 @@ public class ProjectileGenerator implements Creatable, Updatable {
         this.texture = new Texture(image);
         image.dispose();
 
-//        this.fireSound = Gdx.audio.newSound(Gdx.files.internal("Hit damage 1.mp3"));
+        game.getTimer().scheduleTask(new Timer.Task() {
+                               @Override
+                               public void run() {
+                                   if(!game.getPlayer().isDead() && game.isStarted())
+                                       game.getProjectileGenerator().update();
+                               }
+                           },
+                PROJECTILE_GENERATION_DELAY,
+                PROJECTILE_GENERATION_INTERVAL
+        );
     }
 
     @Override

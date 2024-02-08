@@ -3,6 +3,7 @@ package com.platformer.game.score_counter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.platformer.game.Game;
 import com.platformer.game.utils.behavioural.Creatable;
 import com.platformer.game.utils.behavioural.Drawable;
 import com.platformer.game.utils.behavioural.Updatable;
@@ -16,8 +17,8 @@ public class ScoreCounter implements Drawable, Creatable, Updatable {
     private List<Enemy> enemyPool;
     private int score = 0;
 
-    public ScoreCounter(List<Enemy> enemyPool) {
-        this.enemyPool = enemyPool;
+    public ScoreCounter(Game game) {
+        this.enemyPool = game.getEnemyPool();
     }
 
     public void reset() {
