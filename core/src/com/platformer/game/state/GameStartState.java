@@ -7,19 +7,25 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.platformer.game.Game;
 
 public class GameStartState implements GameState{
-    private final Game game;
+    private final Runnable callback;
     private final SpriteBatch batch;
     private final BitmapFont font;
-    public GameStartState(Game game) {
-        this.game = game;
-        this.batch = game.getBatch();
-        this.font = game.getFont();
+
+    public GameStartState(
+            SpriteBatch batch,
+            BitmapFont font,
+            Runnable callback
+    ) {
+        this.batch = batch;
+        this.font = font;
+        this.callback = callback;
     }
+
     @Override
     public void render() {
         this.batch.begin();
         if(Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
-            game.start();
+            this.callback.run();
         }
 
         this.font.getData().setScale(5.f);

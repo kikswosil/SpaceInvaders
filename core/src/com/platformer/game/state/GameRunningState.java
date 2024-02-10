@@ -16,12 +16,13 @@ public class GameRunningState implements GameState{
     private final List<Enemy> enemyPool;
     private final List<Projectile> projectilePool;
     private final SpriteBatch batch;
-    public GameRunningState(Game game) {
-        this.player = game.getPlayer();
-        this.scoreCounter = game.getScoreCounter();
-        this.enemyPool = game.getEnemyPool();
-        this.projectilePool = game.getProjectilePool();
-        this.batch = game.getBatch();
+
+    public GameRunningState(Player player, ScoreCounter scoreCounter, List<Enemy> enemyPool, List<Projectile> projectilePool, SpriteBatch spriteBatch) {
+        this.player = player;
+        this.scoreCounter = scoreCounter;
+        this.enemyPool = enemyPool;
+        this.projectilePool = projectilePool;
+        this.batch = spriteBatch;
     }
     @Override
     public void render() {

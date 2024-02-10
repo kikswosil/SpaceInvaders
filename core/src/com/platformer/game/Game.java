@@ -84,15 +84,30 @@ public class Game extends ApplicationAdapter {
         ScreenUtils.clear(0, 0, 0, 1);
 
         if(!Game.isStarted) {
-            this.currentState = new GameStartState(this);
+            this.currentState = new GameStartState(
+                    this.batch,
+                    this.font,
+                    this::start
+            );
         }
 
         if(this.player.isDead()) {
-            this.currentState = new GameOverState(this);
+            this.currentState = new GameOverState(
+                    this.font,
+                    this.batch,
+                    this.scoreCounter,
+                    this::restart
+            );
         }
 
         if(!this.player.isDead() && Game.isStarted) {
-            this.currentState = new GameRunningState(this);
+            this.currentState = new GameRunningState(
+                    this.player,
+                    this.scoreCounter,
+                    this.enemyPool,
+                    this.projectilePool,
+                    this.batch
+            );
         }
 
         this.currentState.render();
