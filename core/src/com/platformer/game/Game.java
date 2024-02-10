@@ -120,30 +120,4 @@ public class Game extends ApplicationAdapter {
     public void dispose () {
         this.batch.dispose();
     }
-
-
-
-    public Player getPlayer() {
-		return this.player;
-	}
-
-	public BitmapFont getFont() {
-		return this.font;
-	}
-
-	public List<Enemy> getEnemyPool() {
-		return this.enemyPool;
-	}
-
-	public List<Projectile> getProjectilePool() {
-		return this.projectilePool;
-	}
-
-	public SpriteBatch getBatch() {
-		return this.batch;
-	}
-
-	public ScoreCounter getScoreCounter() {
-		return this.scoreCounter;
-	}
 }
