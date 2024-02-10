@@ -18,13 +18,10 @@ public class ProjectileGenerator implements Creatable, Updatable {
     private final Player player;
     private final List<Projectile> projectilePool;
 
-    private Game game;
 
-    public ProjectileGenerator(Game game) {
-        this.player = game.getPlayer();
-        this.projectilePool = game.getProjectilePool();
-
-        this.game = game;
+    public ProjectileGenerator(Player player, List<Projectile> projectilePool) {
+        this.player = player;
+        this.projectilePool = projectilePool;
     }
 
     private int calculateProjectileX() {
@@ -52,11 +49,13 @@ public class ProjectileGenerator implements Creatable, Updatable {
         this.texture = new Texture(image);
         image.dispose();
 
-        game.getTimer().scheduleTask(new Timer.Task() {
+        Timer timer = new Timer();
+
+        timer.scheduleTask(new Timer.Task() {
                                @Override
                                public void run() {
-                                   if(!game.getPlayer().isDead() && game.isStarted())
-                                       game.getProjectileGenerator().update();
+                                   if (!player.isDead() && Game.isStarted)
+                                       update();
                                }
                            },
                 PROJECTILE_GENERATION_DELAY,

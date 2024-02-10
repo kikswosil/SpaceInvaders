@@ -33,7 +33,10 @@ public class Game extends ApplicationAdapter {
 	private final List<Enemy> enemyPool = new ArrayList<>();
 	private final Player player = new Player(this.enemyPool);
     private final ScoreCounter scoreCounter = new ScoreCounter(this.enemyPool);
-    private final ProjectileGenerator projectileGenerator = new ProjectileGenerator(this);
+    private final ProjectileGenerator projectileGenerator = new ProjectileGenerator(
+            this.player,
+            this.projectilePool
+    );
 	private final EnemyGenerator enemyGenerator = new EnemyGenerator(
             this.enemyPool,
             this.projectilePool,
@@ -127,20 +130,5 @@ public class Game extends ApplicationAdapter {
 
 	public ScoreCounter getScoreCounter() {
 		return this.scoreCounter;
-	}
-
-	public Boolean isStarted() {
-		return Game.isStarted;
-	}
-
-	public ProjectileGenerator getProjectileGenerator() {
-		return this.projectileGenerator;
-	}
-
-	public EnemyGenerator getEnemyGenerator() {
-		return this.enemyGenerator;
-	}
-	public Timer getTimer() {
-		return this.timer;
 	}
 }
