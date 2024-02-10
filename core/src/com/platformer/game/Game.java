@@ -32,7 +32,7 @@ public class Game extends ApplicationAdapter {
     private final List<Projectile> projectilePool = new ArrayList<>();
 	private final List<Enemy> enemyPool = new ArrayList<>();
 	private final Player player = new Player(this);
-    private final ScoreCounter scoreCounter = new ScoreCounter(this);
+    private final ScoreCounter scoreCounter = new ScoreCounter(this.enemyPool);
     private final ProjectileGenerator projectileGenerator = new ProjectileGenerator(this);
 	private final EnemyGenerator enemyGenerator = new EnemyGenerator(
             this.enemyPool,

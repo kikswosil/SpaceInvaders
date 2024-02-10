@@ -14,11 +14,11 @@ import java.util.function.Consumer;
 
 public class ScoreCounter implements Drawable, Creatable, Updatable {
     private BitmapFont font;
-    private List<Enemy> enemyPool;
+    private final List<Enemy> enemyPool;
     private int score = 0;
 
-    public ScoreCounter(Game game) {
-        this.enemyPool = game.getEnemyPool();
+    public ScoreCounter(List<Enemy> enemyPool) {
+        this.enemyPool = enemyPool;
     }
 
     public void reset() {
