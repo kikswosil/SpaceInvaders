@@ -20,6 +20,22 @@ public class Const {
         public static final int ENEMY_WIDTH = 128;
         public static final int ENEMY_HEIGHT = 64;
         public static final int ENEMY_GENERATION_FIELD_MARGIN = 0;
+
+        public static final String[] ENEMY_TEXTURE_PATHS = new String[] {
+            "fly.png",
+            "dragonfly.png",
+            "mantis.png",
+            "cicada.png",
+            "mosquito.png",
+            "bee.png",
+            "hornet.png",
+            "bumblebee.png",
+            "wasp.png",
+            "ant.png",
+            "moth.png",
+            "earwig.png",
+            "termite.png"
+        };
     }
 
     public static class Difficulty {

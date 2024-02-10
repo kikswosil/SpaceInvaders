@@ -24,7 +24,7 @@ public class Game extends ApplicationAdapter {
 	private SpriteBatch batch;
     private BitmapFont font;
 	private Timer timer;
-	private boolean isStarted = false;
+	public static boolean isStarted = false;
 	private GameState currentState;
 
 
@@ -34,12 +34,16 @@ public class Game extends ApplicationAdapter {
 	private final Player player = new Player(this);
     private final ScoreCounter scoreCounter = new ScoreCounter(this);
     private final ProjectileGenerator projectileGenerator = new ProjectileGenerator(this);
-	private final EnemyGenerator enemyGenerator = new EnemyGenerator(this);
+	private final EnemyGenerator enemyGenerator = new EnemyGenerator(
+            this.enemyPool,
+            this.projectilePool,
+            this.player
+    );
 
 
 
     public void start() {
-        this.isStarted = true;
+        Game.isStarted = true;
         this.restart();
     }
 
@@ -76,7 +80,7 @@ public class Game extends ApplicationAdapter {
     public void render () {
         ScreenUtils.clear(0, 0, 0, 1);
 
-        if(!this.isStarted) {
+        if(!Game.isStarted) {
             this.currentState = new GameStartState(this);
         }
 
@@ -84,7 +88,7 @@ public class Game extends ApplicationAdapter {
             this.currentState = new GameOverState(this);
         }
 
-        if(!this.player.isDead() && this.isStarted) {
+        if(!this.player.isDead() && Game.isStarted) {
             this.currentState = new GameRunningState(this);
         }
 
@@ -125,8 +129,8 @@ public class Game extends ApplicationAdapter {
 		return this.scoreCounter;
 	}
 
-	public boolean isStarted() {
-		return this.isStarted;
+	public Boolean isStarted() {
+		return Game.isStarted;
 	}
 
 	public ProjectileGenerator getProjectileGenerator() {
