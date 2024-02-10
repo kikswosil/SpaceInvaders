@@ -23,7 +23,6 @@ import java.util.List;
 public class Game extends ApplicationAdapter {
 	private SpriteBatch batch;
     private BitmapFont font;
-	private Timer timer;
 	public static boolean isStarted = false;
 	private GameState currentState;
 
@@ -62,8 +61,6 @@ public class Game extends ApplicationAdapter {
     public void create () {
         // create game utils.
         this.batch = new SpriteBatch();
-
-        this.timer = new Timer();
 
         this.font = new BitmapFont();
         this.font.getData().setScale(3f);
