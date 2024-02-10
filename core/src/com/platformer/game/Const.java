@@ -8,6 +8,7 @@ public class Const {
         public static final float PLAYER_HORIZONTAL_VELOCITY = 3.f;
         public static final float PLAYER_VERTICAL_VELOCITY = 3.f;
         public static final float PLAYER_VELOCITY_SCALAR = 400.f;
+        public static final String PLAYER_TEXTURE_PATH = "player.png";
     }
 
     public static class Enemy {

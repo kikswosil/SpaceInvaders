@@ -21,7 +21,6 @@ import static com.platformer.game.Const.Player.*;
 
 public class Player extends Sprite implements Creatable, Updatable, Drawable, Collideable {
 
-    private final String texturePath;
     private final Vector2 velocity = new Vector2(0, 0);
     private final DesktopInputController controller = new PlayerController(this);
 
@@ -30,9 +29,8 @@ public class Player extends Sprite implements Creatable, Updatable, Drawable, Co
     private final List<Enemy> enemyList;
     private boolean isDead = false;
 
-    public Player(Game game) {
-        this.texturePath = "player.png";
-        this.enemyList = game.getEnemyPool();
+    public Player(List<Enemy> enemyPool) {
+        this.enemyList = enemyPool;
 
         this.setSize(PLAYER_WIDTH, PLAYER_HEIGHT);
     }
@@ -46,7 +44,7 @@ public class Player extends Sprite implements Creatable, Updatable, Drawable, Co
     }
     @Override
     public void create() {
-        Texture texture = new Texture(this.texturePath);
+        Texture texture = new Texture(PLAYER_TEXTURE_PATH);
         this.setTexture(texture);
         this.setRegion(0, 0, texture.getWidth(), texture.getHeight());
 
