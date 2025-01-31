@@ -52,5 +52,6 @@ public class Const {
         public static final int PROJECTILE_TEXTURE_SIZE = 64;
         public static final int PROJECTILE_WIDTH = 3;
         public static final int PROJECTILE_LENGTH = 15;
+        public static final int PROJECTILE_COOLDOWN = 333;
     }
 }

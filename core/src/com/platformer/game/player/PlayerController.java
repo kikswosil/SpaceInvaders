@@ -1,8 +1,8 @@
 package com.platformer.game.player;
 
-import com.badlogic.gdx.Input.Keys;
-
 import static com.badlogic.gdx.Gdx.input;
+
+import com.badlogic.gdx.Input.Keys;
 
 public class PlayerController implements DesktopInputController {
     private final Player player;
@@ -17,6 +17,7 @@ public class PlayerController implements DesktopInputController {
         if(input.isKeyPressed(Keys.S)) Direction.DOWN.attemptMove(this.player);
         if(input.isKeyPressed(Keys.D)) Direction.RIGHT.attemptMove(this.player);
         if(input.isKeyPressed(Keys.A)) Direction.LEFT.attemptMove(this.player);
+        if(input.isKeyPressed(Keys.SPACE)) this.player.shoot();
     }
 
 

@@ -1,24 +1,22 @@
 package com.platformer.game;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
-import com.badlogic.gdx.utils.Timer;
-import com.platformer.game.music.Playlist;
-import com.platformer.game.score_counter.ScoreCounter;
 import com.platformer.game.enemy.Enemy;
 import com.platformer.game.enemy.EnemyGenerator;
+import com.platformer.game.music.Playlist;
 import com.platformer.game.player.Player;
 import com.platformer.game.projectile.Projectile;
-import com.platformer.game.projectile.ProjectileGenerator;
+import com.platformer.game.score_counter.ScoreCounter;
 import com.platformer.game.state.GameOverState;
 import com.platformer.game.state.GameRunningState;
 import com.platformer.game.state.GameStartState;
 import com.platformer.game.state.GameState;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class Game extends ApplicationAdapter {
 	private SpriteBatch batch;
@@ -30,12 +28,15 @@ public class Game extends ApplicationAdapter {
 
     private final List<Projectile> projectilePool = new ArrayList<>();
 	private final List<Enemy> enemyPool = new ArrayList<>();
-	private final Player player = new Player(this.enemyPool);
-    private final ScoreCounter scoreCounter = new ScoreCounter(this.enemyPool);
-    private final ProjectileGenerator projectileGenerator = new ProjectileGenerator(
-            this.player,
-            this.projectilePool
+	private final Player player = new Player(
+        this.enemyPool, 
+        this.projectilePool
     );
+    private final ScoreCounter scoreCounter = new ScoreCounter(this.enemyPool);
+    // private final ProjectileGenerator projectileGenerator = new ProjectileGenerator(
+    //         this.player,
+    //         this.projectilePool
+    // );
 	private final EnemyGenerator enemyGenerator = new EnemyGenerator(
             this.enemyPool,
             this.projectilePool,
@@ -69,7 +70,7 @@ public class Game extends ApplicationAdapter {
 
         // create game objects.
         this.player.create();
-        this.projectileGenerator.create();
+        // this.projectileGenerator.create();
         this.enemyGenerator.create();
 
         // create music

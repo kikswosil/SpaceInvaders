@@ -11,7 +11,8 @@ public class DesktopLauncher {
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
 		config.setForegroundFPS(60);
 		config.setTitle("SPACE INVADERS");
-		config.setMaximized(true);
+		config.setWindowedMode(1200, 800);
+		// config.setMaximized(true);
 		new Lwjgl3Application(new Game(), config);
 	}
 }

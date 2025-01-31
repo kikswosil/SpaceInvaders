@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.platformer.game.Game;
 import com.platformer.game.score_counter.ScoreCounter;
 
 public class GameOverState implements GameState {
