@@ -33,15 +33,13 @@ public class Game extends ApplicationAdapter {
         this.projectilePool
     );
     private final ScoreCounter scoreCounter = new ScoreCounter(this.enemyPool);
-    // private final ProjectileGenerator projectileGenerator = new ProjectileGenerator(
-    //         this.player,
-    //         this.projectilePool
-    // );
 	private final EnemyGenerator enemyGenerator = new EnemyGenerator(
             this.enemyPool,
             this.projectilePool,
             this.player
     );
+
+    private long playerDeathTime = -1;
 
 
 
@@ -56,6 +54,7 @@ public class Game extends ApplicationAdapter {
         scoreCounter.reset();
         enemyGenerator.reset();
         player.reset();
+        this.playerDeathTime = -1;
     }
 
     @Override
@@ -70,7 +69,6 @@ public class Game extends ApplicationAdapter {
 
         // create game objects.
         this.player.create();
-        // this.projectileGenerator.create();
         this.enemyGenerator.create();
 
         // create music
@@ -90,11 +88,15 @@ public class Game extends ApplicationAdapter {
         }
 
         if(this.player.isDead()) {
+            if(this.playerDeathTime == -1) {
+                this.playerDeathTime = System.currentTimeMillis();
+            }
             this.currentState = new GameOverState(
                     this.font,
                     this.batch,
                     this.scoreCounter,
-                    this::restart
+                    this::restart,
+                    this.playerDeathTime
             );
         }
 
