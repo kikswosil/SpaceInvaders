@@ -46,8 +46,8 @@ public class EnemyGenerator implements Creatable, Updatable {
         // create textures from provided paths.
         List<Texture> textures = Arrays.stream(ENEMY_TEXTURE_PATHS).map(new Function<String, Texture>() {
             @Override
-            public Texture apply(String s) {
-                return new Texture(s);
+            public Texture apply(String path) {
+                return new Texture(path);
             }
         }).collect(Collectors.toList());
 
