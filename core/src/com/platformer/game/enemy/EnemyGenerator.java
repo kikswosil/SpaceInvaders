@@ -19,17 +19,21 @@ import com.platformer.game.projectile.Projectile;
 import com.platformer.game.utils.behavioural.Creatable;
 import com.platformer.game.utils.behavioural.Updatable;
 
+import utils.animation.Animation;
+
 public class EnemyGenerator implements Creatable, Updatable {
     private int generatedEnemies = 0;
     private final List<Enemy> enemyPool;
     private final List<Projectile> projectilePool;
+    private final List<Animation> explosionPool;
     private final Player player_ref;
 
     private EnemyManager manager;
 
-    public EnemyGenerator(List<Enemy> enemyPool, List<Projectile> projectilePool, Player player) {
+    public EnemyGenerator(List<Enemy> enemyPool, List<Projectile> projectilePool, List<Animation> explosionPool, Player player) {
         this.projectilePool = projectilePool;
         this.enemyPool = enemyPool;
+        this.explosionPool = explosionPool;
         this.player_ref = player;
     }
 
@@ -47,8 +51,10 @@ public class EnemyGenerator implements Creatable, Updatable {
             }
         }).collect(Collectors.toList());
 
-        this.manager = new EnemyManager(this.enemyPool,
+        this.manager = new EnemyManager(
+                this.enemyPool,
                 this.projectilePool,
+                this.explosionPool,
                 textures
         );
 

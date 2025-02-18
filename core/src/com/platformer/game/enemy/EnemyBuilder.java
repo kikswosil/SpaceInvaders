@@ -3,6 +3,8 @@ package com.platformer.game.enemy;
 import com.badlogic.gdx.graphics.Texture;
 import com.platformer.game.projectile.Projectile;
 
+import utils.animation.Animation;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +17,7 @@ public class EnemyBuilder {
     private int score = 0;
     private List<Projectile> collideablePool = new ArrayList<>();
     private List<Enemy> enemyPool = new ArrayList<>();
+    private List<Animation> explosionPool = new ArrayList<>();
     private float  speedScalar = 0.f;
 
     public EnemyBuilder setTexture(Texture texture) {
@@ -46,6 +49,11 @@ public class EnemyBuilder {
 
     public EnemyBuilder setEnemyPool(List<Enemy> enemyPool) {
         this.enemyPool = enemyPool;
+        return this;
+    }
+
+    public EnemyBuilder setExplosionPool(List<Animation> explosionPool) {
+        this.explosionPool = explosionPool;
         return this;
     }
 
@@ -84,6 +92,7 @@ public class EnemyBuilder {
                 this.height,
                 this.collideablePool,
                 this.enemyPool,
+                this.explosionPool,
                 this.score,
                 this.speedScalar
         );

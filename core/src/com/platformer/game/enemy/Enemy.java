@@ -10,6 +10,9 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.platformer.game.utils.collision.Collideable;
 import com.platformer.game.utils.collision.CollisionUtil;
+
+import utils.animation.Animation;
+
 import com.platformer.game.utils.behavioural.Drawable;
 import com.platformer.game.utils.behavioural.Updatable;
 import com.platformer.game.projectile.Projectile;
@@ -22,6 +25,7 @@ import static com.platformer.game.Const.Enemy.ENEMY_LIFETIME_LENGTH;
 public class Enemy extends Sprite implements Collideable, Drawable, Updatable {
 
     private final List<Projectile> projectiles;
+    private final List<Animation> explosions;
     private final Vector2 velocity = new Vector2(0, -3.f);
     private final float speedScalar;
     private final Sound deathSound = Gdx.audio.newSound(Gdx.files.internal("sounds/Boss hit 1.mp3"));
@@ -40,6 +44,7 @@ public class Enemy extends Sprite implements Collideable, Drawable, Updatable {
             int height,
             List<Projectile> collideablePool,
             List<Enemy> enemyPool,
+            List<Animation> explosionPool,
             int rewardedScore,
             float speedScalar
     ) {
@@ -51,6 +56,7 @@ public class Enemy extends Sprite implements Collideable, Drawable, Updatable {
         this.setRegion(0, texture.getHeight(), texture.getWidth(), -texture.getHeight());
 
         this.projectiles = collideablePool;
+        this.explosions = explosionPool;
         this.rewardedScore = rewardedScore;
         this.speedScalar = speedScalar;
 
@@ -68,6 +74,7 @@ public class Enemy extends Sprite implements Collideable, Drawable, Updatable {
         this.shouldRewardScore = true;
         this.deathSound.play();
         projectile.setShouldRemove(true);
+        this.explosions.add(null);
     }
 
     @Override
