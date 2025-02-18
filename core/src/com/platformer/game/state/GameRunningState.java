@@ -4,9 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.platformer.game.score_counter.ScoreCounter;
-
-import utils.animation.Animation;
-
+import com.platformer.game.utils.animation.Animation;
 import com.platformer.game.enemy.Enemy;
 import com.platformer.game.player.Player;
 import com.platformer.game.projectile.Projectile;

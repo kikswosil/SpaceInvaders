@@ -2,8 +2,7 @@ package com.platformer.game.enemy;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.platformer.game.projectile.Projectile;
-
-import utils.animation.Animation;
+import com.platformer.game.utils.animation.Animation;
 
 import java.util.ArrayList;
 import java.util.List;

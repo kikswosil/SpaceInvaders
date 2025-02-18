@@ -10,9 +10,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.platformer.game.utils.collision.Collideable;
 import com.platformer.game.utils.collision.CollisionUtil;
-
-import utils.animation.Animation;
-
+import com.platformer.game.utils.animation.Animation;
 import com.platformer.game.utils.behavioural.Drawable;
 import com.platformer.game.utils.behavioural.Updatable;
 import com.platformer.game.projectile.Projectile;

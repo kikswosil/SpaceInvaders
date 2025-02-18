@@ -20,8 +20,7 @@ import com.platformer.game.state.GameOverState;
 import com.platformer.game.state.GameRunningState;
 import com.platformer.game.state.GameStartState;
 import com.platformer.game.state.GameState;
-
-import utils.animation.Animation;
+import com.platformer.game.utils.animation.Animation;
 
 public class Game extends ApplicationAdapter {
 	private SpriteBatch batch;

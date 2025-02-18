@@ -1,4 +1,4 @@
-package utils.animation;
+package com.platformer.game.utils.animation;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;

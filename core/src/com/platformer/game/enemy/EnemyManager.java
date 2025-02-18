@@ -4,8 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.platformer.game.projectile.Projectile;
-
-import utils.animation.Animation;
+import com.platformer.game.utils.animation.Animation;
 
 import java.util.*;
 import java.util.stream.Collectors;

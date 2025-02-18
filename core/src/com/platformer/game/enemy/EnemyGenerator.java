@@ -16,10 +16,9 @@ import com.badlogic.gdx.utils.Timer;
 import com.platformer.game.Game;
 import com.platformer.game.player.Player;
 import com.platformer.game.projectile.Projectile;
+import com.platformer.game.utils.animation.Animation;
 import com.platformer.game.utils.behavioural.Creatable;
 import com.platformer.game.utils.behavioural.Updatable;
-
-import utils.animation.Animation;
 
 public class EnemyGenerator implements Creatable, Updatable {
     private int generatedEnemies = 0;
