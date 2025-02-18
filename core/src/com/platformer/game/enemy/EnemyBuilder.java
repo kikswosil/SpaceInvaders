@@ -18,6 +18,7 @@ public class EnemyBuilder {
     private List<Projectile> collideablePool = new ArrayList<>();
     private List<Enemy> enemyPool = new ArrayList<>();
     private List<Animation> explosionPool = new ArrayList<>();
+    private Texture explosionTexture;
     private float  speedScalar = 0.f;
 
     public EnemyBuilder setTexture(Texture texture) {
@@ -83,6 +84,11 @@ public class EnemyBuilder {
         return this;
     }
 
+    public EnemyBuilder setExplosionTexture(Texture texture) {
+        this.explosionTexture = texture;
+        return this;
+    }
+
     public Enemy createEnemy() {
         return new Enemy(
                 this.texture,
@@ -93,6 +99,7 @@ public class EnemyBuilder {
                 this.collideablePool,
                 this.enemyPool,
                 this.explosionPool,
+                this.explosionTexture,
                 this.score,
                 this.speedScalar
         );

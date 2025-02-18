@@ -14,7 +14,7 @@ import static com.platformer.game.Const.Enemy.*;
 
 public class EnemyManager {
     private final Map<EnemyTypes, EnemyBuilder> enemyMap = new HashMap<>();
-    public EnemyManager(List<Enemy> enemyPool, List<Projectile> projectilePool, List<Animation> explosionPool, List<Texture> textures) {
+    public EnemyManager(List<Enemy> enemyPool, List<Projectile> projectilePool, List<Animation> explosionPool, Texture explosionTexture, List<Texture> textures) {
         List<EnemyTypes> enemyTypes = Arrays.stream(EnemyTypes.values()).collect(Collectors.toList());
         for(int i = 0; i < enemyTypes.size(); i++) {
             this.enemyMap.put(enemyTypes.get(i),
@@ -26,6 +26,7 @@ public class EnemyManager {
                             .setCollideablePool(projectilePool)
                             .setEnemyPool(enemyPool)
                             .setExplosionPool(explosionPool)
+                            .setExplosionTexture(explosionTexture)
                             .setSpeedScalar(250.f + 20 * (i == 0 ? 1 : i))
             );
         }

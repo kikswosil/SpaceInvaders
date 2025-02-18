@@ -29,6 +29,7 @@ public class Enemy extends Sprite implements Collideable, Drawable, Updatable {
     private final Vector2 velocity = new Vector2(0, -3.f);
     private final float speedScalar;
     private final Sound deathSound = Gdx.audio.newSound(Gdx.files.internal("sounds/Boss hit 1.mp3"));
+    private final Texture explosionTexture;
     private boolean shouldRemove;
 
     private int rewardedScore = 0;
@@ -45,6 +46,7 @@ public class Enemy extends Sprite implements Collideable, Drawable, Updatable {
             List<Projectile> collideablePool,
             List<Enemy> enemyPool,
             List<Animation> explosionPool,
+            Texture explosionTexture,
             int rewardedScore,
             float speedScalar
     ) {
@@ -57,6 +59,7 @@ public class Enemy extends Sprite implements Collideable, Drawable, Updatable {
 
         this.projectiles = collideablePool;
         this.explosions = explosionPool;
+        this.explosionTexture = explosionTexture;
         this.rewardedScore = rewardedScore;
         this.speedScalar = speedScalar;
 

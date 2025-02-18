@@ -51,10 +51,13 @@ public class EnemyGenerator implements Creatable, Updatable {
             }
         }).collect(Collectors.toList());
 
+        Texture explosionTexture = new Texture("explosion.png");
+
         this.manager = new EnemyManager(
                 this.enemyPool,
                 this.projectilePool,
                 this.explosionPool,
+                explosionTexture,
                 textures
         );
 
