@@ -59,13 +59,15 @@ public class Enemy extends Sprite implements Collideable, Drawable, Updatable {
 
     private void checkCollisions() {
         this.projectiles.forEach(projectile -> {
-            if(CollisionUtil.isColliding(this, projectile)) {
-                Enemy.this.shouldRemove = true;
-                Enemy.this.shouldRewardScore = true;
-                Enemy.this.deathSound.play();
-                projectile.setShouldRemove(true);
-            }
+            if(CollisionUtil.isColliding(this, projectile)) die(projectile);
         });
+    }
+
+    private void die(Projectile projectile) {
+        this.shouldRemove = true;
+        this.shouldRewardScore = true;
+        this.deathSound.play();
+        projectile.setShouldRemove(true);
     }
 
     @Override
