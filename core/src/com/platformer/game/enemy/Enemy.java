@@ -77,7 +77,16 @@ public class Enemy extends Sprite implements Collideable, Drawable, Updatable {
         this.shouldRewardScore = true;
         this.deathSound.play();
         projectile.setShouldRemove(true);
-        this.explosions.add(null);
+        this.explosions.add(new Animation(
+            0,
+            0,
+            (int) this.getX(),
+            (int) this.getY(),
+            64,
+            64,
+            this.explosionTexture,
+            50
+        ));
     }
 
     @Override

@@ -11,42 +11,44 @@ public class Animation implements Drawable, Updatable {
     private int currentY;
     private int frameX;
     private int frameY;
+    private int delay;
+    private long lastFrame;
     private boolean isDone = false;
     private final int frameSizeX;
     private final int frameSizeY;
     private final Texture texture;
 
-    public Animation(int frameSizeX, int frameSizeY, Texture texture) {
-        this.currentX = 0;
-        this.currentY = 0;
+    public Animation(int initialX, int initialY, int posX, int posY, int frameSizeX, int frameSizeY, Texture texture, int delay) {
+        this.currentX = posX;
+        this.currentY = posY;
+        this.frameX = initialX;
+        this.frameY = initialY;
         this.frameSizeX = frameSizeX;
         this.frameSizeY = frameSizeY;
         this.texture = texture;
-    }
-
-    public Animation(int initialX, int initialY, int frameSizeX, int frameSizeY, Texture texture) {
-        this.currentX = initialX;
-        this.currentY = initialY;
-        this.frameSizeX = frameSizeX;
-        this.frameSizeY = frameSizeY;
-        this.texture = texture;
+        this.delay = delay;
+        this.lastFrame = System.currentTimeMillis();
     }
 
     @Override
     public void draw(SpriteBatch batch) {
         batch.draw(
-            new TextureRegion(this.texture, frameSizeX, frameSizeY, frameX, frameY),
+            new TextureRegion(this.texture, frameX, frameY, frameSizeX, frameSizeY),
             (float) this.currentX,
             (float) this.currentY,
-            (float) this.frameSizeX,
-            (float) this.frameSizeY
+            128,
+            128
         );
     }
 
     @Override
     public void update() {
         if(this.frameX + this.frameSizeX == this.texture.getWidth()) this.isDone = true;
-        else this.frameX += this.frameSizeX;
+        else if(System.currentTimeMillis() - lastFrame >= this.delay) {
+            this.frameX += this.frameSizeX;
+            this.lastFrame = System.currentTimeMillis();
+        }
+        else return;
     }
 
     public boolean isDone() {
