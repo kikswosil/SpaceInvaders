@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -17,6 +19,8 @@ import com.platformer.game.state.GameOverState;
 import com.platformer.game.state.GameRunningState;
 import com.platformer.game.state.GameStartState;
 import com.platformer.game.state.GameState;
+
+import static com.platformer.game.Const.Background.*;
 
 public class Game extends ApplicationAdapter {
 	private SpriteBatch batch;
@@ -41,7 +45,7 @@ public class Game extends ApplicationAdapter {
 
     private long playerDeathTime = -1;
 
-
+    private Texture background;
 
     public void start() {
         Game.isStarted = true;
@@ -66,6 +70,8 @@ public class Game extends ApplicationAdapter {
         this.font.getData().setScale(3f);
 
         this.scoreCounter.create();
+
+        this.background = new Texture(BACKGROUND_TEXTURE_PATH);
 
         // create game objects.
         this.player.create();
@@ -106,7 +112,8 @@ public class Game extends ApplicationAdapter {
                     this.scoreCounter,
                     this.enemyPool,
                     this.projectilePool,
-                    this.batch
+                    this.batch,
+                    this.background
             );
         }
 

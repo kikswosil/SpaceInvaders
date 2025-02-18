@@ -1,5 +1,7 @@
 package com.platformer.game.state;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.platformer.game.score_counter.ScoreCounter;
 import com.platformer.game.enemy.Enemy;
@@ -15,16 +17,21 @@ public class GameRunningState implements GameState{
     private final List<Enemy> enemyPool;
     private final List<Projectile> projectilePool;
     private final SpriteBatch batch;
+    private final Texture background;
 
-    public GameRunningState(Player player, ScoreCounter scoreCounter, List<Enemy> enemyPool, List<Projectile> projectilePool, SpriteBatch spriteBatch) {
+    public GameRunningState(Player player, ScoreCounter scoreCounter, List<Enemy> enemyPool, List<Projectile> projectilePool, SpriteBatch spriteBatch, final Texture background) {
         this.player = player;
         this.scoreCounter = scoreCounter;
         this.enemyPool = enemyPool;
         this.projectilePool = projectilePool;
         this.batch = spriteBatch;
+        this.background = background;
     }
     @Override
     public void render() {
+        this.batch.begin();
+        this.batch.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        this.batch.end();
         // update player
         this.player.update();
 

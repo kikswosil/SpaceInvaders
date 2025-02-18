@@ -1,6 +1,9 @@
 package com.platformer.game;
 
 public class Const {
+    public static final class Background {
+        public static final String BACKGROUND_TEXTURE_PATH = "blue-with-stars.png";
+    }
     public static final class Player {
 
         public static final int PLAYER_WIDTH = 128;
