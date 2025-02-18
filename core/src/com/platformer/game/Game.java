@@ -21,6 +21,8 @@ import com.platformer.game.state.GameRunningState;
 import com.platformer.game.state.GameStartState;
 import com.platformer.game.state.GameState;
 
+import utils.animation.Animation;
+
 public class Game extends ApplicationAdapter {
 	private SpriteBatch batch;
     private BitmapFont font;
@@ -31,6 +33,7 @@ public class Game extends ApplicationAdapter {
 
     private final List<Projectile> projectilePool = new ArrayList<>();
 	private final List<Enemy> enemyPool = new ArrayList<>();
+    private final List<Animation> explosionPool = new ArrayList<>();
 	private final Player player = new Player(
         this.enemyPool, 
         this.projectilePool
@@ -39,6 +42,7 @@ public class Game extends ApplicationAdapter {
 	private final EnemyGenerator enemyGenerator = new EnemyGenerator(
             this.enemyPool,
             this.projectilePool,
+            this.explosionPool,
             this.player
     );
 
@@ -111,6 +115,7 @@ public class Game extends ApplicationAdapter {
                     this.scoreCounter,
                     this.enemyPool,
                     this.projectilePool,
+                    this.explosionPool,
                     this.batch,
                     this.background
             );

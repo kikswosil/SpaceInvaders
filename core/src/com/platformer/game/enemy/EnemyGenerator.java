@@ -19,17 +19,21 @@ import com.platformer.game.projectile.Projectile;
 import com.platformer.game.utils.behavioural.Creatable;
 import com.platformer.game.utils.behavioural.Updatable;
 
+import utils.animation.Animation;
+
 public class EnemyGenerator implements Creatable, Updatable {
     private int generatedEnemies = 0;
     private final List<Enemy> enemyPool;
     private final List<Projectile> projectilePool;
+    private final List<Animation> explosionPool;
     private final Player player_ref;
 
     private EnemyManager manager;
 
-    public EnemyGenerator(List<Enemy> enemyPool, List<Projectile> projectilePool, Player player) {
+    public EnemyGenerator(List<Enemy> enemyPool, List<Projectile> projectilePool, List<Animation> explosionPool, Player player) {
         this.projectilePool = projectilePool;
         this.enemyPool = enemyPool;
+        this.explosionPool = explosionPool;
         this.player_ref = player;
     }
 
@@ -42,13 +46,18 @@ public class EnemyGenerator implements Creatable, Updatable {
         // create textures from provided paths.
         List<Texture> textures = Arrays.stream(ENEMY_TEXTURE_PATHS).map(new Function<String, Texture>() {
             @Override
-            public Texture apply(String s) {
-                return new Texture(s);
+            public Texture apply(String path) {
+                return new Texture(path);
             }
         }).collect(Collectors.toList());
 
-        this.manager = new EnemyManager(this.enemyPool,
+        Texture explosionTexture = new Texture("explosion.png");
+
+        this.manager = new EnemyManager(
+                this.enemyPool,
                 this.projectilePool,
+                this.explosionPool,
+                explosionTexture,
                 textures
         );
 

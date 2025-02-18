@@ -5,6 +5,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.platformer.game.projectile.Projectile;
 
+import utils.animation.Animation;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -12,7 +14,7 @@ import static com.platformer.game.Const.Enemy.*;
 
 public class EnemyManager {
     private final Map<EnemyTypes, EnemyBuilder> enemyMap = new HashMap<>();
-    public EnemyManager(List<Enemy> enemyPool, List<Projectile> projectilePool, List<Texture> textures) {
+    public EnemyManager(List<Enemy> enemyPool, List<Projectile> projectilePool, List<Animation> explosionPool, Texture explosionTexture, List<Texture> textures) {
         List<EnemyTypes> enemyTypes = Arrays.stream(EnemyTypes.values()).collect(Collectors.toList());
         for(int i = 0; i < enemyTypes.size(); i++) {
             this.enemyMap.put(enemyTypes.get(i),
@@ -23,6 +25,8 @@ public class EnemyManager {
                             .setRewardedScore((int) (10 * (i == 0 ? 0.5f : i)))
                             .setCollideablePool(projectilePool)
                             .setEnemyPool(enemyPool)
+                            .setExplosionPool(explosionPool)
+                            .setExplosionTexture(explosionTexture)
                             .setSpeedScalar(250.f + 20 * (i == 0 ? 1 : i))
             );
         }

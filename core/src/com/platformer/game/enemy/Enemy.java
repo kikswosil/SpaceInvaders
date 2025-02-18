@@ -10,6 +10,9 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.platformer.game.utils.collision.Collideable;
 import com.platformer.game.utils.collision.CollisionUtil;
+
+import utils.animation.Animation;
+
 import com.platformer.game.utils.behavioural.Drawable;
 import com.platformer.game.utils.behavioural.Updatable;
 import com.platformer.game.projectile.Projectile;
@@ -22,9 +25,11 @@ import static com.platformer.game.Const.Enemy.ENEMY_LIFETIME_LENGTH;
 public class Enemy extends Sprite implements Collideable, Drawable, Updatable {
 
     private final List<Projectile> projectiles;
+    private final List<Animation> explosions;
     private final Vector2 velocity = new Vector2(0, -3.f);
     private final float speedScalar;
     private final Sound deathSound = Gdx.audio.newSound(Gdx.files.internal("sounds/Boss hit 1.mp3"));
+    private final Texture explosionTexture;
     private boolean shouldRemove;
 
     private int rewardedScore = 0;
@@ -40,6 +45,8 @@ public class Enemy extends Sprite implements Collideable, Drawable, Updatable {
             int height,
             List<Projectile> collideablePool,
             List<Enemy> enemyPool,
+            List<Animation> explosionPool,
+            Texture explosionTexture,
             int rewardedScore,
             float speedScalar
     ) {
@@ -51,6 +58,8 @@ public class Enemy extends Sprite implements Collideable, Drawable, Updatable {
         this.setRegion(0, texture.getHeight(), texture.getWidth(), -texture.getHeight());
 
         this.projectiles = collideablePool;
+        this.explosions = explosionPool;
+        this.explosionTexture = explosionTexture;
         this.rewardedScore = rewardedScore;
         this.speedScalar = speedScalar;
 
@@ -59,13 +68,25 @@ public class Enemy extends Sprite implements Collideable, Drawable, Updatable {
 
     private void checkCollisions() {
         this.projectiles.forEach(projectile -> {
-            if(CollisionUtil.isColliding(this, projectile)) {
-                Enemy.this.shouldRemove = true;
-                Enemy.this.shouldRewardScore = true;
-                Enemy.this.deathSound.play();
-                projectile.setShouldRemove(true);
-            }
+            if(CollisionUtil.isColliding(this, projectile)) die(projectile);
         });
+    }
+
+    private void die(Projectile projectile) {
+        this.shouldRemove = true;
+        this.shouldRewardScore = true;
+        this.deathSound.play();
+        projectile.setShouldRemove(true);
+        this.explosions.add(new Animation(
+            0,
+            0,
+            (int) this.getX(),
+            (int) this.getY(),
+            64,
+            64,
+            this.explosionTexture,
+            50
+        ));
     }
 
     @Override
