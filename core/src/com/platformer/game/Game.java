@@ -1,10 +1,11 @@
 package com.platformer.game;
 
+import static com.platformer.game.Const.Background.BACKGROUND_TEXTURE_PATH;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -19,8 +20,6 @@ import com.platformer.game.state.GameOverState;
 import com.platformer.game.state.GameRunningState;
 import com.platformer.game.state.GameStartState;
 import com.platformer.game.state.GameState;
-
-import static com.platformer.game.Const.Background.*;
 
 public class Game extends ApplicationAdapter {
 	private SpriteBatch batch;

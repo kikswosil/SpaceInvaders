@@ -1,10 +1,9 @@
 package com.platformer.game.player;
 
-import com.badlogic.gdx.Gdx;
-import com.platformer.game.player.Player;
-
 import static com.platformer.game.Const.Player.PLAYER_HORIZONTAL_VELOCITY;
 import static com.platformer.game.Const.Player.PLAYER_VERTICAL_VELOCITY;
+
+import com.badlogic.gdx.Gdx;
 
 public enum Direction {
 
@@ -72,9 +71,6 @@ public enum Direction {
             player.setVelocityX(0.f);
         }
     });
-
-    private static final float HORIZONTAL_SPEED = 3.f;
-    private static final float VERTICAL_SPEED = 3.f;
 
     private final MovementImplementation movementImplementation;
     private Direction(MovementImplementation movementImplementation) {

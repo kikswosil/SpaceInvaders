@@ -1,9 +1,7 @@
 package com.platformer.game;
 
-import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
-import com.platformer.game.Game;
 
 // Please note that on macOS your application needs to be started with the -XstartOnFirstThread JVM argument
 public class DesktopLauncher {
@@ -11,8 +9,8 @@ public class DesktopLauncher {
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
 		config.setForegroundFPS(60);
 		config.setTitle("SPACE INVADERS");
-		config.setWindowedMode(1200, 800);
-		// config.setMaximized(true);
+		// config.setWindowedMode(1200, 800);
+		config.setMaximized(true); // does not work with tiling widow managers.
 		new Lwjgl3Application(new Game(), config);
 	}
 }
